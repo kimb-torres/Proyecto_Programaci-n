@@ -121,6 +121,7 @@ def menu():
    print("")
    print("   (3)Salir de la pagina")
    print("")
+   print("   (4) Menú general")
    print("################################################################################################################################################################")
    try:
       eleccion=input('Digite su opción;')
@@ -131,16 +132,25 @@ def menu():
    except:
       print('Como no utilizo números le retornare denuevo al menú')
       return menu()
-   if eleccion>3 or eleccion<1:#verificas que solo tenga esa obciones
+   
+   if eleccion>4 or eleccion<1:#verificas que solo tenga esa obciones
       print(" no dijitaste una eleccion valida")
-      return menu() 
+      return menu()
+   
    if eleccion==1:#abre ese archivo en especifico y lo lee
-       return acceso()#mandarlo a estos función que desarrollare más tarde
+       return usuario()#mandarlo a estos función que desarrollare más tarde
+
+      
    if eleccion==2:
       lecturaDatos="acceso.txt"
       return acceso(lecturaDatos)#esto sera la parte de usuario
    if eleccion==3:
        exit()# Para salirme de la pagina
+       
+   if eleccion==4:
+      return Menugeneral()
+
+   
 def acceso(lecturaDatos):#contraseña para administrativos
    try: 
       usuario=input('Digite su usuario')
@@ -192,16 +202,17 @@ def acceso(lecturaDatos):#contraseña para administrativos
       while i<=largo:
          if copia[i]==contraseña and copia[conta]==usuario:
             return OpcionesAdministrativas()
+         break
          i+=1
          conta+=1
       pass
-   
       print("contraseña o usuario incorrecto")
+      return acceso(lecturaDatos)
    except:
       print("Ha ocurrido un error porfavor volver a intentar")
       return acceso(lecturaDatos)
 
-def OpcionesAdministrativas():#falta hacer la validación de contraseña
+def OpcionesAdministrativas():
     print("################################################################################################################################################################")
     
 
@@ -223,38 +234,70 @@ def OpcionesAdministrativas():#falta hacer la validación de contraseña
 
     
     print("################################################################################################################################################################")
-   
+   #esto funciona el problema es en el while de acceso, ya no molesta amenos que haya un error
+    
     try:#verificador de solo números
         eleccion=input('Digite la gestion que decea realizar')
         eleccion=int(eleccion)#como dara problemas si esta haci lo voy a meter en tyr except y usaremimini verificador
-        if not isinstance(eleccion,int):
-           print("Solo existen opciones a elegir con números, vuelva a intentar")
-           return OpcionesAdministrativas()
+    
+        if eleccion>8 or eleccion<1:
+           print('Solo tenemos 8 opciones a elegir')
+           return OpcionesAdministativas()
+      
+      
+        if  eleccion==1:
+           marcas="aviones.txt"
+           modelo="modeloAviones.txt"
+           return Marcas_De_Aviones(marcas,modelo)#despues defino que va hay
+ 
+      
+        elif eleccion==2:
+           return Gestion_De_Tipos_De_Aviones()#despues defino que va
+
+      
+        elif eleccion==3:
+           return Gestion_De_Aerolinea()
+
+      
+        elif eleccion==4:
+           return Gestión_De_Avion_Por_Aviones()
+
+      
+        elif eleccion==5:
+           return Gestion_De_Vuelos()
+
+      
+        elif eleccion==6:
+           return Consultar_Historial_De_Reservaciones()
+
+      
+        elif eleccion==7:
+           return Estadisticas_De_Vuelo()
+
+      
+        elif eleccion==8:
+           return menu()
     except:
       print("Solo se aceptan números de los tipos de gestiones que decea realizar")
-      return OpcionesAdministrativas()
-    if eleccion>8 or eleccion<1:
-       print('Solo tenemos 8 opciones a elegir')
-       return OpcionesAdministativas()
-    elif eleccion==1:
-       return Marcas_De_Aviones()#despues defino que va hay
-    elif eleccion==2:
-       return Gestion_De_Tipos_De_Aviones()#despues defino que va
-    elif eleccion==3:
-       return Gestion_De_Aerolinea()
-    elif eleccion==4:
-       return Gestión_De_Avion_Por_Aviones()
-    elif eleccion==5:
-       return Gestion_De_Vuelos()
-    elif eleccion==6:
-       return Consultar_Historial_De_Reservaciones()
-    elif eleccion==7:
-       return Estadisticas_De_Vuelo()
-    elif eleccion==8:
-       return menu()
+      return OpcionesAdministrativas(eleccio=None)
+####################################################################################
 #Esto es parte de las administrativas despues veo los procesos de texto
-def Marcas_De_Aviones():
-   m=1
+def Marcas_De_Aviones(marcas,modelo):#aqui se debe poder agregar y modificar nada más es el paso mas sencillo
+   entrar=open(marcas)
+   archivo=entrar.read().split()#['Airbus','boeing','Embraser']
+   entrar.close()
+   f=0
+   print(archivo)
+
+
+
+
+
+
+
+
+
+   
    
 def Gestion_De_Tipos_De_Aviones():
    s=0
@@ -269,4 +312,43 @@ def Consultar_Historial_De_Reservaciones():
    s=m
    
 def Estadisticas_De_Vuelo():
+   m=0
+
+
+   
+def menugeneral():
+   print("###############################################################################################################################################################")
+   print("")
+   print("   (1) Consulta de vuelos")
+   print("")
+   print("   (2)Reservaciones de vuelo")
+   print("")
+   print("   (3)Cancelación de reservacion")
+   print("")
+   print("   (4)Regresar al menú principal")
+   print("###############################################################################################################################################################")
+   try:
+      elegir=input('Digite su opción;')
+      elegir=int(elegir)#pasandolo a int
+      if not isinstance(elegir,int):
+         print('Solo puedes elegir opciones con números')
+         return menugeneral()
+   except:
+      print("Solo existen 4 opciones digite  el número")
+      return menugeneral()
+   if eleccion>4 or eleccion<1:#verificas que solo tenga esa obciones
+      print(" no dijitaste una eleccion valida")
+      return menugeneral() 
+   if eleccion==1:#abre ese archivo en especifico y lo lee
+       return consultaVuelos()#mandarlo a estos función que desarrollare más tarde
+   if eleccion==2:
+      return ReservacionesVuelos()#esto sera la parte de usuario
+   if eleccion==3:
+       return CancelarReservacion()# Para salirme de la pagina
+   if eleccion==4:
+      return menu()
+
+
+   
+def usuario():
    m=0
