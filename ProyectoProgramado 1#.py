@@ -112,9 +112,18 @@ para que los datos sean persistentes. La información se debe mantener para los 
 programa.  """
 #Inicio de menú
 def menu():
-   print("Digite 1; para Obciones de usuario, Digite 2;Para Opciones administrativas,Digite 3; Para salir de la pagina")
+#libreria de fecha actual
+   print("###############################################################################################################################################################")
+   print("")
+   print("   (1)Obciones de usuario")
+   print("")
+   print("   (2)Opciones administrativas")
+   print("")
+   print("   (3)Salir de la pagina")
+   print("")
+   print("################################################################################################################################################################")
    try:
-      eleccion=input('Digite su opción')
+      eleccion=input('Digite su opción;')
       eleccion=int(eleccion)#pasandolo a int
       if not isinstance(eleccion,int):
          print('Solo puedes elegir opciones con números')
@@ -133,106 +142,88 @@ def menu():
    if eleccion==3:
        exit()# Para salirme de la pagina
 def acceso(lecturaDatos):#contraseña para administrativos
-   try:
+   try: 
       usuario=input('Digite su usuario')
+
+      
       contraseña=input('Digite su contraseña')#genera la contraseña para el acceso administrativo
       if usuario=="":
          print("ERROR: Usuario vacio")
          return acceso(lecturaDatos)
+      
       elif contraseña=="":
          print("ERROR:Contraseña vacia")
          return acceso(lecturaDatos)
 
    
       leer=open(lecturaDatos)#esa "r" significa leer
-      contenido=leer.readlines()#si funciona, read line solo lee la primera fila, si le pongo un numero solo lee la cantidad de letras
-#"""metodo mio para obtener datos"""
-      primero=contenido[0]#toma el primer usuario y contraseña,  todos salen como str
-      segundo=contenido[1]#toma el segundo usuario y contraseña
-      tercero=contenido[2]#toma el tercer usuario y contraseña
-   #####################definiir usuarios
-      usuario1=[]# en estos seccionare para la comparativas
-      usuario2=[]
-      usuario3=[]
-      pasword1=[]
-      pasword2=[]
-      pasword3=[]
-   ##################################Obtencion de usuarios
-      parar=","# usare este metodo para separar usuario y luego agarrar la contrasela aparte
-      usuario1=primero.split(parar)[0]# ese cero dice que se inicia desde base 0 y para cuando encuentra ese caracter
-      usuario2=segundo.split(parar)[0]
-      usuario3=tercero.split(parar)[0]
-   ###################obtencion contraseñas
-      resultado1=1# sin el 1 leerian la comilla
-      resultado2=1
-      resultado3=1
-      for cont1 in usuario1:
-         resultado1+=1
-      resultado1
-      for cont2 in usuario2:
-         resultado2+=1
-      resultado2
-      for cont3 in usuario3:
-         resultado3+=1
-      resultado3
-      pasword1=primero[resultado1:]# 1234, usare[inicio:fin] para saltarme la comilla y solo leer contraseña"""""Funciona bien"""""""
-      pasword2=segundo[resultado2:]# admin
-      pasword3=tercero[resultado3:]# pporras
-   #################aun conservan el salto de linea usre otro fort y debo quitar el\n
-      r1=0
-      r2=0
-      r3=0# estan contando bien la caantidad de digitos
-      pasword1=str(pasword1)#'1234\n' haci lo da cuando lo paso
-      pasword2=str(pasword2)#hacer esto genera el \n al final con los contadores lo voy a eliminar
-      pasword3=str(pasword3)
-      for con1 in pasword1:
-         r1+=1
-      r1-=1
-      for con2 in pasword2:
-         r2+=1
-      r2-=1
-      for con3 in pasword3:
-         r3+=1
-      r3-=1
-      pasword1=pasword1[:r1]
-      pasword2=pasword2[:r2]
-      pasword3=pasword3[:r3]#aqui ya estan bien
-   ##################################### verificacion
-      if usuario1==usuario and pasword1==contraseña:
-         return OpcionesAdministrativas()
-      if usuario2==usuario and pasword2== contraseña:
-         return OpcionesAdministrativas()
-      if usuario3==usuario and pasword3==contraseña:
-         return OpcionesAdministrativas()
-      else:
-         print("su usuario o contraseña es incorrecta, porfavor volver aintentar")
-         return acceso(lecturaDatos)
-   
+      contenido=leer.read().split()#si funciona, read line solo lee la primera fila, si le pongo un numero solo lee la cantidad de letras
+      if contenido==[]:
+         print("No hay elementos en el archivo")
+         return menu()
+      
       leer.close()
+      i=0
+      USPAS=[]
+      parar=";"
+      
+      for contar in contenido:
+         cambianteLinea=contenido[i]#leee el primer dato de la lista y lo gace str
+         lectorL=cambianteLinea.split(parar) #lee ese str y lo parte en una lista de 2 cuando encuentra el caracter
+         USPAS=USPAS+ lectorL#va sumando los 2 modulos a una nueva lista
+         i+=1
+         
+      largo=0#aqui mismo i ==3
+      conta=0
+      copia=[]
+      i-=2
+      copia=copia+USPAS# aqui se mantendran los datospara seguir evaluando
+
+      
+      while USPAS!=[]:#medira el largo de la lista para el siguiente paso
+         largo+=1
+         USPAS=USPAS[1:]
+      pass #cuando USPAS SALE de qui sale vacia
+
+   
+   #################################################
+   #LECTOR CONTRASEÑA POR FIIIIIIIIN Y SIN VER VIDEOS JAJAJJA LA EZQIZO
+      #100% funcional
+      while i<=largo:
+         if copia[i]==contraseña and copia[conta]==usuario:
+            return OpcionesAdministrativas()
+         i+=1
+         conta+=1
+      pass
+   
+      print("contraseña o usuario incorrecto")
    except:
-      print('A ocurrido un error porfavor intente denuevo')
+      print("Ha ocurrido un error porfavor volver a intentar")
       return acceso(lecturaDatos)
-   
-            
-      
-      
-  
 
-   
-   
-
-
-
-   
 def OpcionesAdministrativas():#falta hacer la validación de contraseña
-    print('Digite 1 para gestión de marcas de aviones')
-    print('Digite 2 para gestión de tipos de aviones')
-    print('Digite 3 para gestión de aerolinea')
-    print('Digite 4 para gestión de avion por aviones')
-    print('Digite 5 para gestión de vuelos')
-    print('Digite 6 para consultar historial de reservaciones')
-    print('Digite 7 para estadisticas de vuelo')
-    print('Digite 8 registros del menu principal')
+    print("################################################################################################################################################################")
+    
+
+    print(" (1)Gestión de marcas de aviones")
+    
+    print(" (2)Gestión de tipos de aviones")
+    
+    print(" (3)para Gestión de aerolinea")
+    
+    print(" (4) para Gestión de avion por aviones")
+    
+    print(" (5) para Gestión de vuelos")
+    
+    print(" (6) para Consultar historial de reservaciones")
+    
+    print(" (7) para Estadisticas de vuelo")
+    
+    print(" (8) Registros del menu principal")
+
+    
+    print("################################################################################################################################################################")
+   
     try:#verificador de solo números
         eleccion=input('Digite la gestion que decea realizar')
         eleccion=int(eleccion)#como dara problemas si esta haci lo voy a meter en tyr except y usaremimini verificador
