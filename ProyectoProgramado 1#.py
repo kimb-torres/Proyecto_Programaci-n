@@ -240,7 +240,7 @@ def Incluir():# Ya sirve
      print("")
    
      inclusion=input("escriba el nombre dela Marca de que desea incluir")
-     if inclusin=="":
+     if inclusion=="":
         print("No podemos Incluir un vacio")
         return Incluir()
    
@@ -354,7 +354,7 @@ def Modificar():
                  abriendo_Agregar=open(marcas,"a")
                  print(listaEliminacion,file=abriendo_Agregar)
                  abriendo_Agregar.close()
-                 print("Borrado con exito")
+              print("Borrado con exito")
               listaMarcasFinal=listaMarcasFinal[1:]# cuando salga de esto hare una borracion
 
          
@@ -375,13 +375,266 @@ def Modificar():
 
 
 
-
-
-
    
+############################################################################NUEVO MODLULO
+def portadaDeGestionDeAviones():
+   print("###################################################################################################################################")
+   print("")
+   print("   (1)EliminarModelo")
+   print("")
+   print("   (2)ModificarModelo")
+   print("")
+   print("###################################################################################################################################")
    
 def Gestion_De_Tipos_De_Aviones():
+   print(portadaDeGestionDeAviones())
+   modelo="modeloAviones.txt"
+   
+   archivo=open(modelo)
+   if archivo=="":
+      print("No puede haber archivos vacios")
+      return OpcionesAdministrativas()
+   contenido_modelos=archivo.read().split()#['A320;Airbus;16;50;130', '737;Boeing;16;30;150', 'E170;Embraer;66;70;15']
+   archivo.close()
+
+   aviones="aviones.txt"
+   archivo1=open(aviones)
+   if archivo1=="":
+      print("No puede haber archivos vacios")
+      return OpcionesAdministrativas()
+   contenido_aviones=archivo1.read().split()#['Airbus', 'Boeing', 'Embraer']
+   archivo1.close()
+   
+
+   
+#variables que llegaremos a usar
+   print("")
+   print(" Escriba el número la opcion de lo que desea realizar")
+   eligio=input("ESCRIBA EL NUMERO:")
+   if eligio=="":
+      return Gestion_De_Tipos_De_Aviones()
+   elif eligio=="1":
+      return eliminar_modelo()
+   elif eligio=="2":
+      return incluir_modelo()
+   else:
+      print("")
+      print("Su eleccion se sale del rango")
+      print("")
+      return Gestion_De_Tipos_De_Aviones()
+
+   
+def eliminar_modelo():
+   try:
+      modelos="modeloAviones.txt"
+      aviones="aviones.txt"
+
+      
+      archivo=open(modelos)
+      contenido=archivo.read().split()#['A320;Airbus;16;50;130', '737;Boeing;16;30;150', 'E170;Embraer;66;70;15']
+      archivo.close()
+      
+      
+      if archivo=="":
+         print("Archivo de modelos vacio")
+         return Gestion_De_Tipos_De_Aviones()
+
+      
+      print("modelos de aviones")
+      print("")
+      print(contenido)
+      print("")
+      
+      archivo1=open(aviones)
+      contenido1=archivo1.read().split()#['Airbus', 'Boeing', 'Embraer']
+      archivo1.close()
+      
+      if archivo1=="":
+         print("Archivo de Marcas vacio")
+         return Gestion_De_Tipos_De_Aviones()
+      
+      # hare que escriba el modelo en especifico a eliminar
+      print(contenido)
+      print("")
+      print("solo pon el modelo a modificar ejemplo: A320, y haci se modificara todo, almenos que este en aviones")
+      eliminar=input("Modeloa eliminar:")#ESTA ES LA INICIAL DEL INPUT
+      if eliminar=="":
+         print("No se puede eliminar un modelo vacio")
+         return Gestion_De_Tipos_De_Aviones()
+      
+      
+      ###############Inicio funciones
+      nuevalista=[]
+      parar=";"
+      #COPIAAAAA
+      copia_modelos=contenido
+      
+      for m in contenido:#eso vale nueva lista
+         tucos=m.split(parar)#['A320', 'Airbus', '16', '50', '130', '737', 'Boeing', '16', '30', '150', 'E170', 'Embraer', '66', '70', '15']
+         nuevalista=nuevalista+tucos#De aqui saldra en pedasos de 1 en 1 que luego comparare}
+
+      #COPIAAAAAAAAAAS
+      copiaNuevalista=nuevalista
+      # creare un while para recorer para saber si el modelo coincuda
+      contador=0
+      verificador_modelos=0
+      copiaModelos=nuevalista
+      #################
+      while nuevalista!=[]:
+         if eliminar!=nuevalista[0]:
+            contador+=1
+         if eliminar==nuevalista[0]:
+            verificador_modelos+=1
+            break
+         nuevalista=nuevalista[1:]
+      #################A CONTADOR LE AGREGARE 1 PARA QUE ME E EL MODELO
+      contador+=1
+     # print(contador)# esta valiendo 1
+      #print(copiaNuevalista[contador])#  da lo que es
+      
+      # otro para ver si ese modelo en especifico existe en aviones
+      verificador_marcas=0
+      while contenido1!=[]:
+         if copiaNuevalista[contador]==contenido1[0]:
+            verificador_marcas+=1
+         contenido1=contenido1[1:]
+         
+     # print(verificador_modelos)# se enconto
+     # print(verificador_marcas)# se encontro
+      
+      #COMFIRMABA SI ESTABA EN MODELOS Y SI ESTBA EN AVIONES
+      if verificador_modelos>0 and verificador_marcas>0:
+         print("ESTE MODELO NO SE PUEDE BORRAR , ESTA VINCULADO A AVIONES")
+         return Gestion_De_Tipos_De_Aviones()
+      
+      if verificador_modelos==0:
+         print("El modelo a buscar no existe")
+         return Gestion_De_Tipos_De_Aviones()
+      encontrado=0
+      if verificador_modelos>0 and verificador_marcas==0:
+         for recorrer  in copiaModelos:#A COPIA MODELOS NO LE PASO NADA, TODOD BIEN
+            c=recorrer.split(parar)
+            while c!=[]:
+               if eliminar!=c[0]:
+                  encontrado+=1#A ENCONTRADO LE VOY APLICAR DIVISION ENTERA HACI SABER CUAL DEBO ELIMINAR Y CUAL NO
+               if eliminar==c[0]:
+                  break
+               c=c[1:]
+
+#modelos="modeloAviones.txt"
+ #     aviones="aviones.txt"
+         #copiaModelos==['A320', 'Airbus', '16', '50', '130', '737', 'Boeing', '16', '30', '150', 'E170', 'Embraer', '66', '70', '15', 'AS7', 'SELVA', '33', '9', '9', 'J7', 'smn', '1', '2', '4']
+
+         copiaMode_aux=contenido# son iguales entre comillas
+         copias=contenido
+############################### ya funciona
+         encontrado//=5#posicion donde se debe eliminar
+         abriendo_eliminar=open(modelos,"w")# me lo esta devolviendo en cascade
+         abriendo_eliminar.close()
+         print(copiaMode_aux[encontrado])
+         while copias!=[]:
+            if copias[0]!=copiaMode_aux[encontrado]:
+               listaTexto=copias[0]
+               abrirAgregar=open(modelos,"a")
+               print(listaTexto,file=abrirAgregar)
+               abrirAgregar.close()
+            if copias[0]==copiaMode_aux[encontrado]:
+               pass# no lo agrega si ya esta
+            copias=copias[1:]
+               
+               
+     
+      
+
+      
+      
+
+
+
+
+
+
+
+
+      
+   except Exception as e:
+      print("ERROR: en ELIMINAR MODELO:",e)
+      return Gestion_De_Tipos_De_Aviones()
+   
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+def incluir_modelo():
    s=0
+   
+   
+   
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
 def Gestion_De_Aerolinea():
    a=1
@@ -394,6 +647,17 @@ def Consultar_Historial_De_Reservaciones():
    
 def Estadisticas_De_Vuelo():
    m=0
+
+
+
+
+
+
+
+
+
+
+
 
 
    
@@ -413,13 +677,13 @@ def menugeneral():
       print("No existe opcion vacia")
       return menugeneral()
    
-   elif elegir=="1":#abre ese archivo en especifico y lo lee
+   elif elige=="1":#abre ese archivo en especifico y lo lee
        return consultaVuelos()#mandarlo a estos función que desarrollare más tarde
-   elif elegir=="2":
+   elif elige=="2":
       return ReservacionesVuelos()#esto sera la parte de usuario
-   elif elegir=="3":
+   elif elige=="3":
        return CancelarReservacion()# Para salirme de la pagina
-   elif elegir=="4":
+   elif elige=="4":
       return menu()
    else:
       print(" no dijitaste una eleccion valida")
