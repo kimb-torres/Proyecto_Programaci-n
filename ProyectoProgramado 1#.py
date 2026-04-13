@@ -222,7 +222,7 @@ def Modelos():
       return Marcas_De_Aviones()
 
 
-
+##############################################3INCLUIR
    
 def Incluir():# Ya sirve
    try:
@@ -264,7 +264,7 @@ def Incluir():# Ya sirve
       return Marcas_De_Aviones()
       
       
-
+######################################################MODIFICAR
 
 def Modificar():
    
@@ -372,7 +372,8 @@ def Modificar():
       
 
 
-
+############################################################################################
+   #NUEVA FUNCIONADMINISTRATIVA
 
 
    
@@ -422,7 +423,9 @@ def Gestion_De_Tipos_De_Aviones():
       print("Su eleccion se sale del rango")
       print("")
       return Gestion_De_Tipos_De_Aviones()
-
+###########################################################################################################################
+   #ELIMINAR
+###############################################################################################
    
 def eliminar_modelo():
    try:
@@ -528,6 +531,7 @@ def eliminar_modelo():
          copiaMode_aux=contenido# son iguales entre comillas
          copias=contenido
 ############################### ya funciona
+         #33333333333333333333333333333333333333333333333
          encontrado//=5#posicion donde se debe eliminar
          abriendo_eliminar=open(modelos,"w")# me lo esta devolviendo en cascade
          abriendo_eliminar.close()
@@ -541,17 +545,6 @@ def eliminar_modelo():
             if copias[0]==copiaMode_aux[encontrado]:
                pass# no lo agrega si ya esta
             copias=copias[1:]
-               
-               
-     
-      
-
-      
-      
-
-
-
-
 
 
 
@@ -564,73 +557,105 @@ def eliminar_modelo():
       
 
 
+#############################################################################################################################
+   #INCLUSION
+###########################################################################
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#############################
+   ########################DEBE MEJORARSE
+   #########################################################
    
 def incluir_modelo():
-   s=0
+   try:
+      modelos="modeloAviones.txt"
+      print("")
+      print("Digite el codigo de su modelo")
+      modelo=input("Codigo de su modelo")
+      print("")
+      print("Digite la marca del avion")
+      print("")
+      marca=input("Digite la marca")
+      print("Digite la cantidad de asientos primera clase")
+      print("")
+      claseAlta=input("Primeraclase:")
+      print("Digite la cantidad de asientosclase turista")
+      print("")
+      turista=input("Asientos clase turista:")
+      print("Digite la cantidad de asientos,Clase economica")
+      print("")
+      economico=input("Asientos clase economica")
+      print("")
+      claseAlta=int(claseAlta)
+      turista=int(turista)
+      economico=int(economico)
+      
+      if modelo=="":
+         print("La opcion no puede estar vacia")
+         return Gestion_De_Tipos_De_Aviones()
+      if claseAlta=="":
+         print("La opcion no puede estar vacia")
+         return Gestion_De_Tipos_De_Aviones()
+      if turista=="":
+         print("La opcion no puede estar vacia")
+         return Gestion_De_Tipos_De_Aviones()
+      if economico=="":
+         print("La opcion no puede estar vacia")
+         return Gestion_De_Tipos_De_Aviones()
+      claseAlta=str(claseAlta)
+      turista=str(turista)
+      economico=str(economico)
+      
+      #concatenare para luego comparar
+      
+      nuevo=modelo+";"+marca+";"+claseAlta+";"+turista+";"+economico
+      nuevoLista=[nuevo]
+      copia=nuevoLista##LISTA COMPLETAAAAAAA
+      abrir=open(modelos)
+      contenido=abrir.read().split()
+      abrir.close()
+      if abrir=="":
+         print("El documento esta vacio")
+         return Gestion_De_Tipos_De_Aviones()
+
+      
+      copiaC=contenido+copia#LISTA COMPLETAAAAAAA
+      
+      repetido=0
+      
+      
+      while contenido!=[]:
+         if contenido[0]==copia[0]:
+            repetido+=1
+         contenido=contenido[1:]
+
+         
+      if repetido>0:
+         print("Este modelo ya se encuentra registrado")
+         return Gestion_De_Tipos_De_Aviones()
+      if repetido==0:
+         borrar=open(modelos,"w")
+         borrar.close()
+         while copiaC!=[]:
+            can=copiaC[0]
+            agregar=open(modelos,"a")
+            print(can,file=agregar)
+            agregar.close()
+            copiaC=copiaC[1:]
+         print("Se agrego el avion con exito")
+         return Gestion_De_Tipos_De_Aviones()
+            
+   except Exception as e:
+      print("ERROR: en INCLUIR MODELO:",e)
+      print(" no digito numero de asientos")
+      return Gestion_De_Tipos_De_Aviones()
+            
+      
    
    
-   
-   
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#########################################################################################################3
+   #NUEVA FUNCION
+#########################################################################################################3
 
 
 
