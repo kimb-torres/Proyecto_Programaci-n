@@ -144,7 +144,7 @@ def OpcionesAdministrativas():
 
       
     elif eleccion=="3":
-       return Gestion_De_Aerolinea()
+       return Gestion_De_Aerolinea()#lista pro quiero mejorarla
 
       
     elif eleccion=="4":
@@ -258,7 +258,7 @@ def Incluir():# Ya sirve
      
      AbriendoEnAgregar.close()
      print("Se incluyo su marca exitosamente")
-     return Marcas_De_Aviones()
+     return OpcionesAdministrativas()
    except Exception as e:
       print("ERROR: en Incluir:",e)
       return Marcas_De_Aviones()
@@ -385,6 +385,7 @@ def portadaDeGestionDeAviones():
    print("")
    print("   (2)ModificarModelo")
    print("")
+   print("   (3)Salir")
    print("###################################################################################################################################")
    
 def Gestion_De_Tipos_De_Aviones():
@@ -418,6 +419,8 @@ def Gestion_De_Tipos_De_Aviones():
       return eliminar_modelo()
    elif eligio=="2":
       return incluir_modelo()
+   elif eligio=="3":
+      return OpcionesAdministrativas()
    else:
       print("")
       print("Su eleccion se sale del rango")
@@ -648,7 +651,7 @@ def incluir_modelo():
    except Exception as e:
       print("ERROR: en INCLUIR MODELO:",e)
       print(" no digito numero de asientos")
-      return Gestion_De_Tipos_De_Aviones()
+      return OpcionesAdministrativas()
             
       
    
@@ -656,13 +659,194 @@ def incluir_modelo():
 #########################################################################################################3
    #NUEVA FUNCION
 #########################################################################################################3
+def poratadaGestionAerolinea():
+   print("###################################################################################################################################")
+   print("")
+   print("(1)Incluir Aerolinea")
+   print("")
+   print("(2)Eliminar Aerolinea")
+   print("")
+   print("(3)Salir")
+   print("###################################################################################################################################")
+
+   
+def Gestion_De_Aerolinea():
+   print(poratadaGestionAerolinea())
+   c=input("Digite su eleccion")
+   if c=="":
+      print("No existe opcion vacia intente de nuevo")
+      return Gestion_De_Aerolinea()
+   elif c=="1":
+      return IncluirAerolinea()
+   elif c=="2":
+      return eliminarAeroline()
+   elif c=="3":
+      return OpcionesAdministrativas()
+   else:
+      print("La opcion que digitaste no existe")
+      return OpcionesAdministrativas()
+   
+def eliminarAeroline():
+   
+   try:
+      aviones="aviones.txt"
+      aerolinea="aerolineas.txt"
+
+      
+      abrir=open(aviones)
+      contenido=abrir.read().split()
+      abrir.close()
+
+      
+      if abrir=="":
+         return Gestion_De_Aerolinea()
+
+      
+      abre=open(aerolinea)
+      contenido1=abre.read()
+
+      
+      abre.close()
+      abra=open(aerolinea)
+      contenido2=abra.read().split()
+      abra.close()
+      copia=contenido2
+      
+      AF="Embraer"
+      COPA="Boeing"
+      LACSA="Airbus"
+      ##Lacsa es
+      marca1="AF"
+      marca2="COPA"
+      marca3="LACSA"
+      print("Aerolines a Eliminar")
+      print(contenido1)
+      print()
+      avion=input("Escriba Correctamente la aerolinea que decea eliminar:")
+      if avion=="":
+         print("El modelo no puede estar vacio")
+         return Gestion_De_Aerolinea()
+      copiaAvion=avion
+      parar=";"
+      listaavion=copiaAvion.split(parar)#['LACSA', 'Sanjose costarrica CMD', 'SJO']
+      print(listaavion)
+      Guardar=[]
+      if listaavion[0] ==marca1:
+         Guardar=AF
+      elif listaavion[0]==marca2:
+         Guardar=COPA
+      elif listaavion[0]==marca3:
+         Guardar=LACSA
+      
+         
+###Aqui sabre la posicion del que voy a comparar
+      encontrado=0
+      for recorrer in contenido:
+         if recorrer==Guardar:
+            encontrado+=1
+      #Haci me da la posicion
+      if encontrado>0:
+         print("Nose puede borrar esta aerolinea porque esta vinculado ala marca")
+         return Gestion_De_Aerolinea()
+            
+      contador=0#cuenta perfecto
+      KILL=[]
+      if encontrado==0:
+         for m in copia:
+            if copiaAvion!=m:
+               contador+=1
+            else:
+               KILL=m
+               break
+      borrar=open(aerolinea,"w")
+      borrar.close()
+      while copia!=[]:
+         if copia[0]!=KILL:
+            m=copia[0]
+            a=open(aerolinea,"a")
+            print(m,file=a)
+            a.close()
+         else:
+            pass
+         copia=copia[1:]
+      print("Borrado con exito")
+      return OpcionesAdministrativas()
+            
+            
+
+
+
+
+
+      
+   except Exception as e:
+      print("ERROR: en ELIMINAR AEROLINE:",e)
+      return eliminarAeroline()
+######################################################################################
+   
+def IncluirAerolinea():
+   try:
+      print("ingrese la aeroLinea:")
+      aerolinea=input("aerolinea:")
+      print("")
+      print("ingrese el destino; ejm: CiudadDePanama;CDP")
+      destino=input("Ingrese el destino")
+      if aerolinea=="":
+         print("La aerolinea no puede estar vacia")
+         return Gestion_De_Aerolinea()
+      elif destino=="":
+         print("El destino no puede estar en blanco")
+         return Gestion_De_Aerolinea()
+
+      
+      coca=aerolinea+";"+destino
+      cocaLista=[coca]#DIGNO DE UN MEME
+
+      
+      ar="aerolineas.txt"
+      
+      abre=open(ar)
+      contenido=abre.read().split()#['LACSA;SanjoseCostarricaCDM;SJO', 'COPA;CiudaddePanamaPTY;MSJ', 'AF;Francia;MDT;(DMS)']
+      abre.close()
+      
+      if abre=="":
+         returnGestion_De_Aerolinea()
+      trouve=0
+      for n in contenido:
+         if coca==n:
+            trouve+=1
+            
+      if trouve>0:
+         print("No se puede agregar una aerolinea, con todo repetid0")
+         return Gestion_De_Aerolinea()
+
+      nueva=contenido+cocaLista
+      
+      if trouve==0:
+         o=open(ar,"w")
+         o.close()
+         while nueva!=[]:
+            c=nueva[0]
+            m=open(ar,"a")
+            print(c,file=m)
+            m.close()
+            nueva=nueva[1:]
+         print("Aerolinea agregada")
+         return Gestion_De_Aerolinea()
+         
+         
+      
+   except Exception as e:
+      print("ERROR: en INCLUIR AEROLINEA:",e)
+      return IncluirAerolinea()
+
+
 
 
 
 
    
-def Gestion_De_Aerolinea():
-   a=1
+#################################################################################################3
 def Gestión_De_Avion_Por_Aviones():
    b=2
 def Gestion_De_Vuelos():
