@@ -5,7 +5,7 @@ def menu():
 #libreria de fecha actual
    print("###################################################################################################################################")
    print("")
-   print("   (1)Obciones de usuario")
+   print("   (1)Opciones de usuario")
    print("")
    print("   (2)Opciones administrativas")
    print("")
@@ -37,7 +37,7 @@ def menu():
        exit()# Para salirme de la pagina
        
    if eleccion==4:
-      return Menugeneral()
+         return menugeneral()
 
    
 def acceso():#contraseña para administrativos
@@ -115,7 +115,7 @@ def textoOpcionesAdministrativas():
     
    print(" (3)para Gestión de aerolinea")
     
-   print(" (4) para Gestión de avion por aviones")
+   print(" (4) para Gestión de avion por aerolinea")
     
    print(" (5) para Gestión de vuelos")
     
@@ -128,7 +128,7 @@ def textoOpcionesAdministrativas():
     
    print("###################################################################################################################################")
 def OpcionesAdministrativas():
-    print(textoOpcionesAdministrativas())
+    textoOpcionesAdministrativas()
    #esto funciona el problema es en el while de acceso, ya no molesta amenos que haya un error
     eleccion=input("Digite su obcion a elegir,debe ser número")
 
@@ -389,7 +389,7 @@ def portadaDeGestionDeAviones():
    print("###################################################################################################################################")
    
 def Gestion_De_Tipos_De_Aviones():
-   print(portadaDeGestionDeAviones())
+   portadaDeGestionDeAviones()
    modelo="modeloAviones.txt"
    
    archivo=open(modelo)
@@ -686,7 +686,7 @@ def Gestion_De_Aerolinea():
       print("La opcion que digitaste no existe")
       return OpcionesAdministrativas()
    
-def eliminarAeroline():
+def eliminarAeroline():########USAR AVIONESAEROLINEAS.TXT
    
    try:
       aviones="aviones.txt"
@@ -847,10 +847,576 @@ def IncluirAerolinea():
 
    
 #################################################################################################3
-def Gestión_De_Avion_Por_Aviones():
-   b=2
+def Gestión_De_Avion_Por_Aviones():#Gestion de avion por aerolinea###($$$$$$$$$44444444444444)
+   print("############################################################################################################################")
+   print("")
+   print("(1)Incluir aviones")
+   print("")
+   print("(2)Eliminar aviones")
+   print("")
+   print("(3)Salir")
+   print("")
+   print("############################################################################################################################")
+   ele=input("DIGITE SU ELECION")
+   if ele=="1":
+      return Incluir_Avion()
+   if ele=="2":
+      return eliminar_Avion()
+   if ele=="3":
+      return OpcionesAdministrativas()
+   else:
+      return Gestion_De_Avion_Por_Aviones()
+
+
+def Incluir_Avion():
+   try:
+      avero="avionesAerolineas.txt"
+      aviones="Aviones.txt"
+      vuelos="vuelos.txt"
+      
+      abrir=open(avero)
+      contenido=abrir.read()
+      abrir.close()
+      
+      abre=open(aviones)
+      contenido1=abre.read()
+      abre.close()
+      
+      abra=open(vuelos)
+      contenido2=abra.read().split()
+      abra.close()
+      parar=";"
+      listaAerolinea=[]
+      x=open(avero)
+      dentro1=x.read().split()
+      x.close()
+      for p in dentro1:
+         c=p.split(parar)
+         listaAerolinea=listaAerolinea+c
+      f=4
+      listaAerea=[]
+      conta=0
+      for b in listaAerolinea:
+         conta+=1
+      while f<conta:
+         if listaAerolinea[f]!=[]:
+            listaAerea=listaAerea+[listaAerolinea[f]]
+         else:
+            pass
+         f+=5
+         
+      
+         
+      
+      print("Nuestros aviones por aerolinea son")
+      print(contenido)
+      print("")
+      print("Matricula del avion que decea incluir")
+      matricula=input("Matricula")
+      print("")
+      print("Ingrese el modelo de avion, modelos actuales son:")
+      print(contenido1)
+      avion=input("Tipo de avion a agregar:")
+      print("")
+      print("Digite el modelo de avion:")
+      modelo=input("modelo:")
+      print("")
+      print("Digite el año de fabricacion")
+      fecha=input("Año:")
+      print("")
+      print(listaAerea)# me sa solo las aerolineas
+      print("Digite la aerolinea")
+      aerolinea=input("Digite la aerolinea:")
+      if matricula=="":
+         print("Matricula Vacia")
+         return Incluir_Avion()
+      elif avion=="":
+         print("modelo avion vacio")
+         return Incluir_Avion()
+      elif modelo=="":
+         print(" modelo esta vacio")
+         return Incluir_Avion()
+      elif fecha=="":
+         print(" EL año de fabricacion esta vacio")
+         return Incluir_Avion()
+      elif aerolinea=="":
+         print("La aerolinea esta vacia")
+         return Incluir_Avion()
+      ##########AVIONES
+      f=open(aviones)
+      dentroAviones=f.read().split()
+      f.close()
+      
+      m=open(avero)
+      dentro=m.read().split()#['MSN001;Airbus;A320;2006;LACSA', 'N804AM;Boeing;737;2020;COPA', 'LOT;Embraer;E1170;2002;AF']AvionesAerolineas
+      m.close()
+
+      nuevalista=[]
+      Regarder=0
+      for u in listaAerea:
+         if aerolinea ==u:
+            Regarder+=1
+      if Regarder==0:
+         print("La aerolinea que desea agregar no esta en nuestros registros")
+         return Gestión_De_Avion_Por_Aviones()
+
+      for r in dentro:
+         c=r.split(parar)
+         nuevalista=nuevalista+c#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF
+#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+#matricula aparece cada5
+         ###CONTADOR
+      contador=0
+      i=0
+      Lista=nuevalista
+      largo=0
+      for l in nuevalista:
+         largo+=1
+#verificar que matricula no se repita
+      while i<largo:
+         if nuevalista[i]==matricula:
+            contador+=1
+         i+=5
+      if contador>0:
+         print("la matricula que menciono ya esta vinculada a un modelio de avion,vuelva a intentar")
+         return Incluir_Avion()
+      enAvion=0
+      if contador==0:#Osea si la matricula no es igual se verifica esto
+         for t in dentroAviones:
+            if avion==t:
+               enAvion+=1
+      if enAvion==0:
+         print("El avion que deceas agregar no existe en nuestro registro")
+         return Gestión_De_Avion_Por_Aviones()
+      elif enAvion>0:
+         nuevoModelo=matricula+";"+avion+";"+modelo+";"+fecha+";"+aerolinea
+         dentro=dentro+[nuevoModelo]
+         borrar=open(avero,"w")
+         borrar.close()
+         for s in dentro:
+            a=open(avero,"a")
+            print(s,file=a)
+            a.close()
+         print("Gestion de aerolinea agregada con exito,este nuevo modelo")
+         return Gestión_De_Avion_Por_Aviones()
+   except Exception as e:
+      print("ERROR: en INCLUIR GESTION:", e)
+      return Gestión_De_Avion_Por_Aviones()
+      
+
+
+
+
+
+
+
+
+      
+
+#######################################################################################################################33
+   #ELIMINACION DE MODELOS NO INCLUIDOS
+
+###########################################################################################################################
+
+def eliminar_Avion():
+   try:
+      avero="avionesAerolineas.txt"
+      aviones="Aviones.txt"
+      vuelos="vuelos.txt"
+      
+      abrir=open(avero)
+      contenido=abrir.read()
+      abrir.close()
+      
+      abre=open(aviones)
+      contenido1=abre.read()
+      abre.close()
+      
+      abra=open(vuelos)
+      contenido2=abra.read().split()
+      abra.close()
+      parar=";"
+      listaAerolinea=[]
+      
+      x=open(avero)
+      dentro1=x.read().split()
+      x.close()
+      listaModelos=[]
+  
+      for p in dentro1:
+         c=p.split(parar)
+         listaAerolinea=listaAerolinea+c
+      
+      datos = dentro1
+      e=4
+      listaAerea=[]
+      u=open(avero)
+      wao=u.read().split()
+      u.close()
+      datos = dentro1
+      largo=0
+      MU=[]
+      for n in wao:
+         s=n.split(parar)
+         MU=MU+s
+
+      
+      for u in MU:
+         largo+=1
+      
+      
+      while e<largo:
+         listaAerea=listaAerea+[MU[e]]
+         e+=5
+         if e>largo:
+            break
+
+         
+      listaModelos = []
+      
+
+      while datos != []:
+          linea=datos[0]
+          partes=linea.split(parar)
+
+          if partes != []:
+             try:
+             
+                listaModelos=listaModelos + [partes[2]]
+             except:
+                 pass
+
+          datos = datos[1:]
+       
+      print("Nuestros aviones por aerolinea son")
+      print(contenido)
+      print("")
+      print("Matricula del avion que decea ELIMINAR")
+      matricula=input("Matricula")
+      print("")
+      print("Ingrese el modelo de avion, modelos actuales son:")
+      print(contenido1)
+      avion=input("Tipo de avion a ELIMINAR:")
+      print("")
+      print("Digite el modelo de avion:")
+      print(listaModelos)
+      modelo=input("modelo:")
+      print("")
+      print("Digite el año de fabricacion")
+      fecha=input("Año:")
+      print("")
+      print(listaAerea)
+      print("Digite la aerolinea")
+      aerolinea=input("Digite la aerolinea:")
+      if matricula=="":
+         print("Matricula Vacia")
+         return eliminar_Avion()
+      elif avion=="":
+         print("modelo avion vacio")
+         return eliminar_Avion()
+      elif modelo=="":
+         print(" modelo esta vacio")
+         return eliminar_Avion()
+      elif fecha=="":
+         print(" EL año de fabricacion esta vacio")
+         return eliminar_Avion()
+      elif aerolinea=="":
+         print("La aerolinea esta vacia")
+         return eliminar_Avion()
+      
+      ##########AVIONES
+      f=open(aviones)
+      dentroAviones=f.read().split()#AVIONS SALEN TUQIADOS
+      f.close()
+
+
+      volar=open(vuelos)
+      dentroVolar=volar.read().split()
+      volar.close()
+      listaVuelo=[]
+
+      for j in dentroVolar:
+         t=j.split(parar)
+         listaVuelo=listaVuelo+t#['MSN001', 'CDM', 'SJO', 'COPA', 'A30', '16', '50', '130']#VUELOS
+
+           
+      m=open(avero)
+      dentro=m.read().split()#['MSN001;Airbus;A320;2006;LACSA', 'N804AM;Boeing;737;2020;COPA', 'LOT;Embraer;E1170;2002;AF']AvionesAerolineas
+      m.close()
+      nuevalista=[]
+      for r in dentro:
+         c=r.split(parar)
+         nuevalista=nuevalista+c#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF
+#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+      copiaListaVuelo=listaVuelo
+         
+      contador=-1# saber la posicion, y si lo que sige del modelo esta en el otro
+      equivale=0#saber si se encontrp
+      while listaVuelo!=[]:
+         if listaVuelo[0]==matricula:#saber si la que buscamos se encuentra
+            equivale+=1#['MSN001', 'CDM', 'SJO', 'COPA', 'A320', '16', '50', '130']#VUELOS
+            break
+         else:
+            contador+=1# hase en 7# esta BIEN QUIERE DECIR QUE NO SE ENCUENTA
+            listaVuelo=listaVuelo[1:]
+      
+           
+            
+      contador2=0
+      #contador vale 11 se recontra pasa
+      
+      # me esta dando el final
+      if equivale>0:#si se encuentra buscamos la posicion
+         verificacion=copiaListaVuelo[contador]#Para refiicar el modelo si coincide, mousequeramienta que usare mas tarde
+     
+      
+   
+      posicion=-1
+      Trouve=0
+      
+      #################CONTADOR POSICION MATRICULA
+      for u in nuevalista:# encontara si aqui esta la maricula
+         if matricula!=u:#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+            posicion+=1#LEE 1 DE MAS
+         elif matricula==u:
+            Trouve+=1
+ ##############################################           
+      copia=posicion# ese tres cuando se divida entero da cifra exacta de donde esta
+      
+     # deberia darme el modelo, en AVIONES AEROLINEAS
+      
+      posicion-=1
+      verifica2=nuevalista[posicion]
+      print(verifica2)
+      if equivale>0 and Trouve>0 and verificacion==verifica2:# funciona
+         print("NO SE PUEDE BORRAR ESTE MODELO, ESTA ASOCIADO EN VUELOS")
+         return Gestión_De_Avion_Por_Aviones()
+      if equivale>0 and Trouve==0:
+         print("El avion a eliminar no existe en modelos")
+         return Gestión_De_Avion_Por_Aviones()
+      if Trouve==0 and equivale==0:
+         print("Este modelo no existe")
+         return Gestión_De_Avion_Por_Aviones()
+      if Trouve>0 and equivale==0:
+         copia//=5
+         borrar=open(avero,"w")
+         borrar.close()
+
+         
+         for s in dentro:
+            if s != dentro[copia]:
+               abre=open(avero,"a")
+               print(s,file=abre)
+               abre.close()
+         print("Modelo borrado con exito")
+         return Gestión_De_Avion_Por_Aviones()
+
+   except Exception as e:
+      print("ERROR: en INCLUIR GESTION:", e)
+      return Gestion_De_Vuelos()
+      
+
+
+              #['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF
+#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+      
+    
+  
+##################################################################################################################3
+   #NUEVA FUNCION
+
+   
+ #################################################################################################################  
 def Gestion_De_Vuelos():
-   c=3
+   print("####################################################################################################")
+   print("")
+   print("(1)Incluir Vuelos")
+   print("")
+   print("(2)Eliminar Vuelo")
+   print("")
+   print("(3)Mostrar Vuelos")
+   print("")
+   print("(4)Salir")
+   print("")
+   print("####################################################################################################")
+   eli=input("DIGITE SU ELECCION:")
+   if eli=="":
+      print("La eleccion no debe estar en blanco")
+      return Gestión_De_Avion_Por_Aviones()
+   elif eli=="1":
+      return Incluir_Gestion()
+   elif eli=="2":
+      return Eliminar_Gestion()
+   elif eli=="3":
+      return Mostrar_Vuelos()
+   elif eli=="4":
+      return OpcionesAdministrativas()
+   else:
+      return Gestión_De_Avion_Por_Aviones()
+######################################################################################################################
+
+   
+def Incluir_Gestion():
+   try:
+
+
+
+
+
+      avero="avionesAerolineas.txt"
+      aviones="Aviones.txt"
+      vuelos="vuelos.txt"
+      
+      abrir=open(avero)
+      contenido=abrir.read()
+      abrir.close()
+      
+      abre=open(aviones)
+      contenido1=abre.read()
+      abre.close()
+      
+      abra=open(vuelos)
+      contenido2=abra.read().split()
+      abra.close()
+      parar=";"
+      listaAerolinea=[]
+      x=open(avero)
+      dentro1=x.read().split()
+      x.close()
+      listaModelos=[]
+      
+      for p in dentro1:
+         c=p.split(parar)
+         listaAerolinea=listaAerolinea+c
+      
+      datos = dentro1
+      e=4
+      listaAerea=[]
+      u=open(avero)
+      wao=u.read().split()
+      u.close()
+      datos = dentro1
+      largo=0
+      MU=[]
+      for n in wao:
+         s=n.split(parar)
+         MU=MU+s
+
+      
+      for u in MU:
+         largo+=1
+      
+      
+      while e<largo:
+         listaAerea=listaAerea+[MU[e]]
+         e+=5
+         if e>largo:
+            break
+
+         
+      listaModelos = []
+      
+
+      while datos != []:
+          linea = datos[0]
+          partes = linea.split(parar)
+
+          if partes != []:
+             try:
+                listaModelos = listaModelos + [partes[2]]
+                
+             except:
+               print("Dato malo:", partes)
+
+          datos = datos[1:]
+      
+       
+      print("Bienvenido: porfavor ingresar")
+      print(contenido)
+      print("")
+      print("Matricula del avion que decea Generar el vuelo:")
+      codigo=input("Ingrese: un codigo")
+      print("")
+      print("Ingrese el modelo de avion, modelos actuales son:")
+      print(contenido1)
+      CodigoAeropuerto=input("Ingrese el codigo del Aeropuerto:")
+      print("")
+      print("Digite el modelo de avion:")
+      print(listaModelos)
+      modelo=input("modelo avion:")
+      print("")
+      print(listaAerea)
+      print("Digite la aerolinea")
+      aerolinea=input("Digite la aerolinea:")
+      if codigo=="":
+         print("Matricula Vacia")
+         return eliminar_Avion()
+      elif CodigoAeropuerto=="":
+         print("modelo avion vacio")
+         return eliminar_Avion()
+      elif modelo=="":
+         print(" modelo esta vacio")
+         return eliminar_Avion()
+         
+      elif aerolinea=="":
+         print("La aerolinea esta vacia")
+         return eliminar_Avion()
+      
+
+      Encontrada_Aerolinea=0#SOLO COMPRUEVA QUE ELIGE UNA AEROLINEA REGISTARDA
+      for n in listaAerea:
+         if aerolinea==n:
+            Encontrada_Aerolinea+=1
+      if Encontrada_Aerolinea==0:
+         print("La aerolinea No existe")
+         return Gestion_De_Vuelos()
+      
+
+
+
+
+
+
+
+
+      
+   except Exception as e:
+       print("ERROR: en INCLUIR GESTION:",e)
+       return Gestion_De_Vuelos()
+
+def Eliminar_Gestion():
+   s=1
+
+def Mostrar_Vuelos():
+   m=0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+   
 def Consultar_Historial_De_Reservaciones():
    s=m
    
