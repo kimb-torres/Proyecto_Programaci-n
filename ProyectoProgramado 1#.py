@@ -1139,6 +1139,10 @@ def eliminar_Avion():
          t=j.split(parar)
          listaVuelo=listaVuelo+t#['MSN001', 'CDM', 'SJO', 'COPA', 'A30', '16', '50', '130']#VUELOS
 
+
+         
+#A320;SJO;06/04/2026;14:50;SJO;COPA;MSN001;16;50;130
+
            
       m=open(avero)
       dentro=m.read().split()#['MSN001;Airbus;A320;2006;LACSA', 'N804AM;Boeing;737;2020;COPA', 'LOT;Embraer;E1170;2002;AF']AvionesAerolineas
@@ -1257,8 +1261,17 @@ def Gestion_De_Vuelos():
 
    
 def Incluir_Gestion():
+   from datetime import datetime,timedelta
+   hoy=datetime.now()
+   fecha=hoy.strftime("%Y/%m/%d;%H:%M")#2026/04/14;20:10 osea fecha y hora
+   mannana=hoy + timedelta(days=1)
    try:
+      print(fecha)
 
+      modeloAviones="modeloAviones.txt"
+      V=open(modeloAviones)
+      LEER=V.read().split()
+      V.close()
 
 
 
@@ -1266,13 +1279,28 @@ def Incluir_Gestion():
       avero="avionesAerolineas.txt"
       aviones="Aviones.txt"
       vuelos="vuelos.txt"
+      aerolineas="aerolineas.txt"
       
       abrir=open(avero)
       contenido=abrir.read()
       abrir.close()
+      parar=";"
+
+
+      abrir=open(avero)
+      contenido_matricula=abrir.read().split()# ES LA DE AVIONE SPOR AEROLINEA
+      abrir.close()
+      ListaAsientos=[]
+      for s in contenido_matricula:
+         p=s.split(parar)
+         ListaAsientos=ListaAsientos + p#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+
+
+
       
-      abre=open(aviones)
-      contenido1=abre.read()
+      abre=open(aerolineas)#['LACSA;SanjoseCostarricaCDM;SJO', 'COPA;CiudaddePanamaPTY;MSJ', 'AF;Francia;MDT;DMS']
+
+      contenido1=abre.read().split()# EL NUMERO 4 SIN EMPERZAR DE 0 ES LA AREROLIEA ACTUAL
       abre.close()
       
       abra=open(vuelos)
@@ -1330,37 +1358,36 @@ def Incluir_Gestion():
 
           datos = datos[1:]
       
-       
       print("Bienvenido: porfavor ingresar")
       print(contenido)
       print("")
       print("Matricula del avion que decea Generar el vuelo:")
-      codigo=input("Ingrese: un codigo")
+      matricula=input("Ingrese: un Matricula")#CORRECTO YA VERIFICO QUE EXISTA MATRICULA
       print("")
-      print("Ingrese el modelo de avion, modelos actuales son:")
+      print("Ingrese Codigo de aeropuesto, es casi el ultimo en  cada segmento:")
       print(contenido1)
       CodigoAeropuerto=input("Ingrese el codigo del Aeropuerto:")
       print("")
-      print("Digite el modelo de avion:")
-      print(listaModelos)
-      modelo=input("modelo avion:")
+      print("Ingrese el codigo de aeropuerto de llegada")
       print("")
-      print(listaAerea)
+      print(contenido1)
+      llegada=input("Codigo Aeropuerto llegada:")
+      print("Digite el modelo de avion:")
+      print("")
+      print(listaAerea)#CORRECTO, MUESTRA LAS AEROLINEAS
       print("Digite la aerolinea")
       aerolinea=input("Digite la aerolinea:")
-      if codigo=="":
+      if matricula=="":
          print("Matricula Vacia")
          return eliminar_Avion()
       elif CodigoAeropuerto=="":
          print("modelo avion vacio")
          return eliminar_Avion()
-      elif modelo=="":
-         print(" modelo esta vacio")
-         return eliminar_Avion()
          
       elif aerolinea=="":
          print("La aerolinea esta vacia")
          return eliminar_Avion()
+      
       
 
       Encontrada_Aerolinea=0#SOLO COMPRUEVA QUE ELIGE UNA AEROLINEA REGISTARDA
@@ -1370,6 +1397,129 @@ def Incluir_Gestion():
       if Encontrada_Aerolinea==0:
          print("La aerolinea No existe")
          return Gestion_De_Vuelos()
+      
+
+
+
+      existeMatricula=0#Aqui confirmo que el avion existe
+      ContarPosicionMatricula=0
+      COPIA=ListaAsientos
+      for s in ListaAsientos:#CONTADOR POSICION MATRICULAAAAAAAAAAAAAAAAAAAAAA
+         if s ==matricula:
+            existeMatricula+=1
+            break#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+         ContarPosicionMatricula += 1#LO USARE PARA SACAR ASIENTOS Y#########################################
+         COPIA=COPIA[1:]# A POSICION LE SUMO 2 Y LLEGO A MODELO
+
+
+
+         
+      #########3ContarPosicionMatricula CUENTA BIEN
+            
+
+      #VERIFICAR QUE CODIGO DE AEROPUERTO NO SEA AEROLINEA
+      if CodigoAeropuerto==aerolinea or CodigoAeropuerto==matricula or llegada==CodigoAeropuerto:
+         print("ERROR: Mal uso del codigo de aeropuerto y aerolinea, y Probablemente su codigo de llegada fue repetido")
+         return Gestion_De_Vuelos()
+            
+      if existeMatricula==0:
+         print("La Matricula No existe")
+         return Gestion_De_Vuelos()
+#ES UN TUQIADOR DE LA PARTE DE LLEGADA Y AEROLINEA
+      listaYegada=[]
+      for m in  contenido1:# voy a empezar a dejar espacios para ubicarme en el desorden
+         c = m.split(parar)
+         listaYegada = listaYegada + c
+        
+#['LACSA', 'SanjoseCostarrica', 'CDM', 'SJO', 'COPA', 'CiudaddePanama', 'PTY', 'MSJ', 'AF', 'Francia', 'MDT', 'DMS']
+      codigoAereo=0
+      for n in listaYegada:
+         if CodigoAeropuerto==n:
+            codigoAereo +=1
+      if codigoAereo==0:
+         print("EL Aeropuerto no existe")
+         return Gestion_De_Vuelos()
+
+   
+         
+      
+ #['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF
+##ENCONTAR Los asientos
+########################################################33
+
+      
+      ContarPosicionMatricula+=2#AQUI DEBE ESTAR MODELO
+      #sacar el modelo de aqui
+      aer=ContarPosicionMatricula+2
+      modelo=ListaAsientos[ContarPosicionMatricula]#CORRECTO
+      
+      MARCAAERO=ListaAsientos[aer]#correcto ejm;LACSA
+#['A320', 'Airbus', '16', '50', '130', '737', 'Boeing', '16', '30', '150', 'E170', 'Embraer', '66', '70', '15']    
+###############################################################################
+      modeloAviones="modeloAviones.txt"
+      V=open(modeloAviones)
+      LEER=V.read().split()
+      V.close()
+      Asientos=[]
+      encontrarAerolinea=0
+      for s in LEER:
+         c=s.split(parar)
+         Asientos= Asientos + c
+#ENCONTAR MODELO EN ASIENTOS
+      encontroAsientos=0
+      TrouveSOFA=0#verificacion de que si existe
+      
+      #NUNCA LO HIBA A ENCONTAR YA QUE AQUI NO SALE LA MATRICULA SOLO EL MODEO
+      for s in Asientos:
+         if s==modelo:
+            TrouveSOFA+=1
+            break
+         encontroAsientos+=1#cuenta bien solo le sumo 2 y ya hay asientos
+
+
+#POSICION DE ASIENTOS
+      caro=encontroAsientos+2
+      medio=encontroAsientos+3
+      barato=encontroAsientos+4
+      Premiun=Asientos[caro]
+      Turista=Asientos[medio]
+      Economico=Asientos[barato]# es otro es llegada
+
+      vuelo=modelo+";"+CodigoAeropuerto+";"+fecha+";"+llegada+";"+fecha+";"+MARCAAERO+";"+matricula+";"+Premiun+";"+Turista+";"+Economico
+      cesamo=open(vuelos)
+      dentro6=cesamo.read().split()
+      cesamo.close()
+
+      vuelo=[vuelo]
+      Total=[]
+      Total=Total+vuelo
+      Total=Total+dentro6
+      p=open(vuelos,"w")
+      p.close()
+      for m in Total:#funciona bien 10/10
+         h=open(vuelos,"a")
+         print(m,file=h)
+         h.close()
+      print("Vuelo agregado con exito")
+      return Gestion_De_Vuelos()
+           
+         
+         
+      
+      
+      if  encontroAsientos==0:
+         print("La matricula no esta Asociada a modelo aviones aerolinea")
+         return Gestion_De_Vuelos()
+      
+            
+         
+         
+         
+      
+      
+      
+         
+      
       
 
 
