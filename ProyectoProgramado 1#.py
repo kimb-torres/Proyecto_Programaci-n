@@ -707,95 +707,136 @@ def Gestion_De_Aerolinea():
 def eliminarAeroline():########USAR AVIONESAEROLINEAS.TXT
    
    try:
-      aviones="aviones.txt"
+      
       aerolinea="aerolineas.txt"
-
+      aviones_Aerolineas="avionesAerolineas.txt"
       
-      abrir=open(aviones)
-      contenido=abrir.read().split()
-      abrir.close()
 
+      parar=";"
       
-      if abrir=="":
-         return Gestion_De_Aerolinea()
 
       
       abre=open(aerolinea)
       
-      contenido1=abre.read()
+      contenido=abre.read().split()#
       if abre=="":
          print("Archivo de Aerolinea vacio")
          return Gestion_De_Aerolinea()
-
-      
       abre.close()
-      abra=open(aerolinea)
-      contenido2=abra.read().split()
-      if abra=="":
-         print("Archivo de Aerolinea vacio")
-         return Gestion_De_Aerolinea()
-      abra.close()
-      copia=contenido2
       
-      AF="Embraer"##################################################CORREGIRRRRRRRRRRRRRRRRRRRRRRRRR
-      COPA="Boeing"
-      LACSA="Airbus"
-      ##Lacsa es
-      marca1="AF"
-      marca2="COPA"
-      marca3="LACSA"
-      print("Aerolines a Eliminar")
-      print(contenido1)
-      print()
-      avion=input("Escriba Correctamente la aerolinea que decea eliminar:")
-      if avion=="":
-         print("El modelo no puede estar vacio")
-         return Gestion_De_Aerolinea()
-      copiaAvion=avion
-      parar=";"
-      listaavion=copiaAvion.split(parar)#['LACSA', 'Sanjose costarrica CMD', 'SJO']
-      print(listaavion)
-      Guardar=[]
-      if listaavion[0] ==marca1:
-         Guardar=AF
-      elif listaavion[0]==marca2:
-         Guardar=COPA
-      elif listaavion[0]==marca3:
-         Guardar=LACSA
+      NuevaLista=[]
+      for s in contenido:
+         c=s.split(parar)
+         NuevaLista+=c
+      long=0
+      for s in NuevaLista:
+         long+=1
+      t=0
+      ListaAero=[]
+      while t<long:
+         ListaAero+=[NuevaLista[t]]#['LACSA', 'COPA', 'AF'] esta Viene de aerolineas
+         t+=4
+         
       
          
-###Aqui sabre la posicion del que voy a comparar
-      encontrado=0
-      for recorrer in contenido:
-         if recorrer==Guardar:
-            encontrado+=1
-      #Haci me da la posicion
-      if encontrado>0:
-         print("Nose puede borrar esta aerolinea porque esta vinculado ala marca")
+
+
+
+      abrase=open(aviones_Aerolineas)
+      if abrase=="":
+         print("ARCHIVO AVIONES AEROLINEAS VACIO")
          return Gestion_De_Aerolinea()
+
+      
+      cont3=abrase.read().split()
+      abrase.close()
+
+      nuevo_Aerolineas=[]
+      for t in cont3:
+         c=t.split(parar)
+         nuevo_Aerolineas+=c#['MSN001', 'Airbus', 'A320', '2006', 'LACSA', 'N804AM', 'Boeing', '737', '2020', 'COPA', 'LOT', 'Embraer', 'E1170', '2002', 'AF']
+      
+      
+
+
+      
+
+      largo=0
+      for m in nuevo_Aerolineas:#nuevo_Aerolinea tiene todo
+         largo+=1
+              
+
+      #Sacar aerolineas
+      i=4
+      listaAerolineas=[]
+      while i<largo:
+            listaAerolineas+=[nuevo_Aerolineas[i]]#['LACSA', 'COPA', 'AF'] Funciona bien
+            i+=5
+      
+      
+      #listaAerolineas==============son los aviones vinculados
+      #NuevaLista =============Ala d ela aeroline aya tuqiada 
+      ##Lacsa es
+      
+      print("Aerolines a Eliminar",ListaAero)
+      print("")
+      print("")
+      aero=input("Escriba Correctamente la aerolinea que decea eliminar:")
+      if aero=="":
+         print("El modelo no puede estar vacio")
+         return Gestion_De_Aerolinea()
+      Trouve=0
+      for D in listaAerolineas:
+         if aero==D:
+            Trouve+=1#SABER SI ESTA VINCULADA A AVIONES
+#LACSA;SanjoseCostarrica;CDM;SJO
+#COPA;CiudaddePanama;PTY;MSJ
+#AF;Francia;MDT;DMS
+      
+
+      encontrado=0
+      posicion=0
+      for t in ListaAero:
+         if aero==t:
+            encontrado+=1
+            break
+         posicion+=1#LACSA;SanjoseCostarrica;CDM;SJO===========contenido
+         
+      
             
-      contador=0#cuenta perfecto
-      KILL=[]
       if encontrado==0:
-         for m in copia:
-            if copiaAvion!=m:
-               contador+=1
-            else:
-               KILL=m
-               break
+         print("La aerolinea no existe en aerolinea")
+         return Gestion_De_Aerolinea()
+      
+      elif encontrado==0 and Trouve==0:
+         print("La aerolinea no existe")
+         return Gestion_De_Aerolinea()
+      
+      elif encontrado==0 and Trouve>0:
+         print("La aerolinea existe en modelos de avion, más no en aerolinea")
+         return Gestion_De_Aerolinea()
+      
+      elif encontrado>0 and Trouve>0:
+         print("No se puede borrar, esta aerolinea esta vinculada aun modelo de avion")
+         return Gestion_De_Aerolinea()
+      
       borrar=open(aerolinea,"w")
       borrar.close()
-      while copia!=[]:
-         if copia[0]!=KILL:
-            m=copia[0]
-            a=open(aerolinea,"a")
-            print(m,file=a)
-            a.close()
-         else:
-            pass
-         copia=copia[1:]
-      print("Borrado con exito")
-      return OpcionesAdministrativas()
+      if encontrado>0:
+         
+         for h in contenido:
+            if h!=contenido[posicion]:
+               agregar=open(aerolinea,"a")
+               print(h,file=agregar)
+               agregar.close()
+      print("AEROLINEA eliminada con exito")
+      return Gestion_De_Aerolinea()
+            
+         
+      
+      
+      
+      
             
             
 
@@ -807,6 +848,12 @@ def eliminarAeroline():########USAR AVIONESAEROLINEAS.TXT
    except Exception as e:
       print("ERROR: en ELIMINAR AEROLINE:",e)
       return eliminarAeroline()
+
+
+
+
+
+   
 ######################################################################################
    
 def IncluirAerolinea():
