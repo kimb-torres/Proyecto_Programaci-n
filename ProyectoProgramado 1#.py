@@ -1,7 +1,11 @@
 
 #Inicio de menú
 
+
+   
+
 def menu():
+   
 #libreria de fecha actual
    print("###################################################################################################################################")
    print("")
@@ -61,6 +65,8 @@ def acceso():#contraseña para administrativos
       if contenido==[]:
          print("No hay elementos en el archivo")
          return menu()
+      elif leer=="":
+          print("ERROR:Carpeta Vacia")
       
       leer.close()
       i=0
@@ -204,14 +210,14 @@ def Marcas_De_Aviones():#aqui se debe poder agregar y modificar nada más es el 
       return OpcionesAdministrativas()
 
  ################################################################CORREGIR  
-
-
-   
 def Modelos():
    marcas="aviones.txt"
    M=open(marcas)
    c=M.read()
    M.close()
+   if M=="":
+       print("carpeta: aviones vacia")
+       return Marcas_De_Aviones()
    print("")
    print("Modelos de aviones actualmente")
    print("")
@@ -226,12 +232,14 @@ def Modelos():
    
 def Incluir():# Ya sirve
    try:
+
      marcas="aviones.txt"
      modelo="modeloAviones.txt"
      entrar=open(marcas)
      archivo=entrar.read().split()#['Airbus','Boeing','Embraser']
      entrar.close()
-
+     if entrar=="":
+         print("ERROR: Carpeta: aviones vacia")
    
      print(archivo)
      print("")
@@ -279,6 +287,9 @@ def Modificar():
         if lista_marcas==[]:
            print("Error. El archivo esta vacio")
            return Marcas_De_Aviones()
+        if archivo=="":
+            print("ERROR: ARCHIVO aviones Vacio")
+            return Marcas_De_Aviones()
         archivo.close()
 
         listaMarcasFinal=[]
@@ -289,7 +300,9 @@ def Modificar():
 
         # Leer modelos 
         archivo = open(modelos)
-        
+        if archivo=="":
+            print("ERROR: ARCHIVO modeloAviones Vacio")
+            return Marcas_De_Aviones()
         lista_modelos = archivo.read().split()# salen conservando el salto de linea
         if lista_modelos==[]:
            print("Error. El archivo esta vacio")
@@ -438,12 +451,14 @@ def eliminar_modelo():
       
       archivo=open(modelos)
       contenido=archivo.read().split()#['A320;Airbus;16;50;130', '737;Boeing;16;30;150', 'E170;Embraer;66;70;15']
+      if archivo=="":
+            print("ERROR: ARCHIVO aviones Vacio")
+            return Gestion_De_Tipos_De_Aviones()
+          
       archivo.close()
       
       
-      if archivo=="":
-         print("Archivo de modelos vacio")
-         return Gestion_De_Tipos_De_Aviones()
+      
 
       
       print("modelos de aviones")
@@ -453,6 +468,9 @@ def eliminar_modelo():
       
       archivo1=open(aviones)
       contenido1=archivo1.read().split()#['Airbus', 'Boeing', 'Embraer']
+      if archivo1=="":
+         print("Archivo de Aviones vacio")
+         return Gestion_De_Tipos_De_Aviones()
       archivo1.close()
       
       if archivo1=="":
@@ -703,16 +721,23 @@ def eliminarAeroline():########USAR AVIONESAEROLINEAS.TXT
 
       
       abre=open(aerolinea)
+      
       contenido1=abre.read()
+      if abre=="":
+         print("Archivo de Aerolinea vacio")
+         return Gestion_De_Aerolinea()
 
       
       abre.close()
       abra=open(aerolinea)
       contenido2=abra.read().split()
+      if abra=="":
+         print("Archivo de Aerolinea vacio")
+         return Gestion_De_Aerolinea()
       abra.close()
       copia=contenido2
       
-      AF="Embraer"
+      AF="Embraer"##################################################CORREGIRRRRRRRRRRRRRRRRRRRRRRRRR
       COPA="Boeing"
       LACSA="Airbus"
       ##Lacsa es
@@ -806,7 +831,8 @@ def IncluirAerolinea():
       ar="aerolineas.txt"
       
       abre=open(ar)
-      contenido=abre.read().split()#['LACSA;SanjoseCostarricaCDM;SJO', 'COPA;CiudaddePanamaPTY;MSJ', 'AF;Francia;MDT;(DMS)']
+      contenido=abre.read().split()
+      #['LACSA;SanjoseCostarricaCDM;SJO', 'COPA;CiudaddePanamaPTY;MSJ', 'AF;Francia;MDT;(DMS)']
       abre.close()
       
       if abre=="":
@@ -875,21 +901,35 @@ def Incluir_Avion():
       vuelos="vuelos.txt"
       
       abrir=open(avero)
+      if abrir=="":
+         print("La avionesAerolinea no puede estar vacia")
+         return Gestión_De_Avion_Por_Aviones()
       contenido=abrir.read()
+      
       abrir.close()
       
       abre=open(aviones)
       contenido1=abre.read()
+      if abre=="":
+         print("La Avionesa no puede estar vacia")
+         return Gestión_De_Avion_Por_Aviones()
       abre.close()
       
       abra=open(vuelos)
       contenido2=abra.read().split()
+      if abra=="":
+         print("La vuelos no puede estar vacia")
+         return Gestión_De_Avion_Por_Aviones()
       abra.close()
       parar=";"
       listaAerolinea=[]
       x=open(avero)
       dentro1=x.read().split()
+      if x=="":
+         print("La avionesAerolinea no puede estar vacia")
+         return Gestión_De_Avion_Por_Aviones()
       x.close()
+      
       for p in dentro1:
          c=p.split(parar)
          listaAerolinea=listaAerolinea+c
@@ -945,10 +985,16 @@ def Incluir_Avion():
       ##########AVIONES
       f=open(aviones)
       dentroAviones=f.read().split()
+      if f=="":
+         print("La Aviones no puede estar vacia")
+         return Gestión_De_Avion_Por_Aviones()
       f.close()
       
       m=open(avero)
       dentro=m.read().split()#['MSN001;Airbus;A320;2006;LACSA', 'N804AM;Boeing;737;2020;COPA', 'LOT;Embraer;E1170;2002;AF']AvionesAerolineas
+      if m=="":
+         print("La avionesAerolinea no puede estar vacia")
+         return Gestión_De_Avion_Por_Aviones()
       m.close()
 
       nuevalista=[]
@@ -1518,11 +1564,6 @@ def Incluir_Gestion():
       
       
       
-         
-      
-      
-
-
 
 
 
@@ -1534,13 +1575,142 @@ def Incluir_Gestion():
        print("ERROR: en INCLUIR GESTION:",e)
        return Gestion_De_Vuelos()
 
+
+
+
+
+
+
+
+
+
+###############################################################continuacion vuelos
 def Eliminar_Gestion():
-   s=1
+   try:
+      vuelo="vuelos.txt"
+      
+      #LEE CUANTAS POSIBLIDADES AHY osea el largo de la lista
+
+         
+      dentro=open(vuelo)
+      if dentro=="":
+         print("ERROR: La carpeta Vuelo esta vacia")
+         return Gestion_De_Vuelos()
+      con=dentro.read().split()#tuquea listo para usar
+      dentro.close()
+#['737;PTY;2026/04/15;19:50;MSJ;2026/04/15;19:50;COPA;N804AM;16;30;150', 'A320;PTY;2026/04/15;19:46;MSJ;2026/04/15;19:46;LACSA;MSN001;16;50;130', '737;PTY;2026/04/15;00:57;MSJ;2026/04/15;00:57;COPA;N804AM;16;30;150', 'A320;SJO;06/04/2026;14:50;SJO;07/04/2026;14:15COPA;MSN001;16;50;130', 'A320;MDT;2026/04/15;00:38;DMS;2026/04/15;00:38;LACSA;MSN001;16;50;130']
+
+      cantidad=1
+      for u in con:
+         print(cantidad,":",u)
+         cantidad+=1
+
+      borrar=input("Digite el número de vuelo que decea Borrar")
+      if borrar=="":
+         print("No pueden haber opciones vacias")
+         return Eliminar_Gestion()
+
+      
+      try:
+         borrar=int(borrar)
+      except:
+         print("No digito un numero entero, vuelva a intentar")
+         return Eliminar_Gestion()
+
+      largo=0
+      for l in con:
+         largo+=1
+
+      
+      borrar=borrar-1
+      if borrar>=largo:
+         print("La opcion que digito no se encuentra")
+         return Eliminar_Gestion()
+      eliminar=con[borrar]
+      f=open(vuelo,"w")
+      f.close()
+      for s in con:
+         if s!=eliminar:#Guardador de archivos
+            nuevo=open(vuelo,"a")
+            print(s,file=nuevo)
+            nuevo.close()
+      print("Vuelo borrado con exito")
+      return Gestion_De_Vuelos()
+
+
+
+
+
+
+
+
+         
+#737;PTY;2026/04/15;19:50;MSJ;2026/04/15;19:50;COPA;N804AM;16;30;150
+#A320;PTY;2026/04/15;19:46;MSJ;2026/04/15;19:46;LACSA;MSN001;16;50;130
+#737;PTY;2026/04/15;00:57;MSJ;2026/04/15;00:57;COPA;N804AM;16;30;150
+#A320;SJO;06/04/2026;14:50;SJO;07/04/2026;14:15COPA;MSN001;16;50;130
+#A320;MDT;2026/04/15;00:38;DMS;2026/04/15;00:38;LACSA;MSN001;16;50;130      
+
+               
+      
+
+
+
+      
+   except Exception as e:
+      print("ERROR: en ELIMINAR GESTION:",e)
+      return Gestion_De_Vuelos()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 def Mostrar_Vuelos():
-   m=0
+   try:
+      vuelo="vuelos.txt"
 
 
+      dentro=open(vuelo)
+      if dentro=="":
+         print("ERROR: La carpeta Vuelo esta vacia")
+         return Gestion_De_Vuelos()
+      con=dentro.read().split()#tuquea listo para usar
+      dentro.close()
+
+
+      cantidad=1
+      for u in con:
+         print(cantidad,":",u)
+         cantidad+=1
+      salir=input("Digite lo que sea para regresar")
+      if salir=="":
+         print("Para salir no puedes dejar un vacio")
+         return Mostrar_Vuelos()
+      else:
+         return Gestion_De_Vuelos()
+
+
+
+
+
+
+         
+   except Exception as e:
+      print("ERROR: en MOSTAR VUELOS:",e)
+      return Gestion_De_Vuelos()
+   
 
 
 
