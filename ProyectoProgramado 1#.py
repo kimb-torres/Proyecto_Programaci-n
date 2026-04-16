@@ -1376,6 +1376,39 @@ def Incluir_Gestion():
          s=n.split(parar)
          MU=MU+s
 
+         
+      copia=contenido1
+      copiaLista2=[]
+      for s in copia:
+         n=s.split(parar)
+         copiaLista2+=n
+         
+      largo2=0
+      for n in copiaLista2:
+         largo2+=1
+
+         
+      j=2   
+      ListaArribo=[]
+      while j<largo2:
+         ListaArribo+=[copiaLista2[j]]#['CDM', 'PTY', 'MDT']
+         j+=4
+      k=3
+      ListaLlegada=[]
+      while k<largo2:
+         ListaLlegada+=[copiaLista2[k]]#['SJO', 'MSJ', 'DMS']
+         k+=4
+
+
+
+
+
+
+
+
+
+      
+
       
       for u in MU:
          largo+=1
@@ -1411,18 +1444,18 @@ def Incluir_Gestion():
       matricula=input("Ingrese: un Matricula")#CORRECTO YA VERIFICO QUE EXISTA MATRICULA
       print("")
       print("Ingrese Codigo de aeropuesto, es casi el ultimo en  cada segmento:")
-      print(contenido1)
-      CodigoAeropuerto=input("Ingrese el codigo del Aeropuerto:")
+      print(ListaArribo)
+      CodigoAeropuerto=input("Ingrese el codigo del Aeropuerto de arribo:")
       print("")
       print("Ingrese el codigo de aeropuerto de llegada")
       print("")
-      print(contenido1)
+      print(ListaLlegada)
       llegada=input("Codigo Aeropuerto llegada:")
       print("Digite el modelo de avion:")
       print("")
       print(listaAerea)#CORRECTO, MUESTRA LAS AEROLINEAS
       print("Digite la aerolinea")
-      aerolinea=input("Digite la aerolinea:")
+      aerolinea=input("Digite la aerolinea:")#PURA FANTASIA
       if matricula=="":
          print("Matricula Vacia")
          return eliminar_Avion()
@@ -1433,6 +1466,21 @@ def Incluir_Gestion():
       elif aerolinea=="":
          print("La aerolinea esta vacia")
          return eliminar_Avion()
+
+      encontrarLlegada=0
+      for n in ListaArribo:
+         if CodigoAeropuerto==n:
+            encontrarLlegada+=1
+      if encontrarLlegada==0:
+         print("Codigo de llegada invalido")
+         return Gestion_De_Vuelos()
+      yes=0
+      for n in ListaLlegada:
+         if llegada==n:
+            yes+=1
+      if yes==0:
+         print("Arribo no existe ,invalido")
+         return Gestion_De_Vuelos()
       
       
 
@@ -1715,30 +1763,45 @@ def Mostrar_Vuelos():
 
 
 
+################################################################################################################################################################
+   #HISTORIAL RESERVACION
 
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
+#################################################################################################################################################################
 
    
 def Consultar_Historial_De_Reservaciones():
-   s=m
+   try:
+      m=0
+
+
+
+
+
+      
+   except Exception as e:
+      print("ERROR: en Consultar_Historial_De_Reservaciones:",e)
+      return Gestion_De_Vuelos()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
 def Estadisticas_De_Vuelo():
    m=0
@@ -1783,8 +1846,200 @@ def menugeneral():
    else:
       print(" no dijitaste una eleccion valida")
       return menugeneral() 
+def PORTADACONSULTAVUELOS():
+   print("############################################################################################################################")
+   print("")
+   print("(1)VUELOS EJECUTIVOS")
+   print("")
+   print("(2)VUELOS TURISTA")
+   print("")
+   print("(3)VUELOS ECONOMICO")
+   print("")
+   print("#############################################################################################################################")
+def consultaVuelos():
+   PORTADACONSULTAVUELOS()#se returna incluso sin print
+   eleccion=input("Elija su opción:")
+   if eleccion=="1":
+      return ejecutivos()
+   elif eleccion=="2":
+      return turista()
+   elif eleccion=="3":
+      return economico()
+   else:
+      return menu()
+######################################################################################################################################
+   #Importante
+
+############################MUY importante  
+def filtraVuelos():
+   try:
+      vuelos="vuelos.txt"
+      parar=";"
+      abre=open(vuelos)
+      
+      if abre=="":
+         print("ListaVuelos vacia")
+         return menu()
+      contenido1=abre.read().split()
+      abre.close()
+      copiaContenido=contenido1
+      ListaVuelos=[]
+      for n in contenido1:
+         c=n.split(parar)
+         ListaVuelos+=c#['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', 'MSN001', '16', '50', '130', '737', 'PTY', '2026/04/15', '00:57', 'MSJ', '2026/04/15', '00:57', 'COPA', 'N804AM', '16', '30', '150', 'A320', 'SJO', '06/04/2026', '14:50', 'SJO', '07/04/2026', '14:15COPA', 'MSN001', '16', '50', '130', 'A320', 'MDT', '2026/04/15', '00:38', 'DMS', '2026/04/15', '00:38', 'LACSA', 'MSN001', '16', '50', '130']
+      
+      
+      aerolinea="aerolineas.txt"
+      abrir=open(aerolinea)
+      if abrir=="":
+         print("ERROR: LA CARPETA AEROLIEAS ESTA VACIA")
+         return menu()
+      contenido=abrir.read().split()#contenido sige con lo de las aerolineas
+      abrir.close()
+      
+
+      
+      NuevaLista=[]
+      for s in contenido:
+         c=s.split(parar)
+         NuevaLista=NuevaLista+c#ya todo en pedacitos
+      
+
+         
+      ###########################################SACAR LARGO
+      largo=0
+      for m in NuevaLista:
+         largo+=1
+              
+
+      #Sacar aerolineas
+      i=0
+      listaAerolineas=[]
+      while i<largo:
+            listaAerolineas+=[NuevaLista[i]]#['LACSA', 'COPA', 'AF']
+            i+=4
+         
+      ####################Lugares de Arribo
+      j=2#De hay enpiezan los arribos
+      ListaArribo=[]
+      while j<largo:
+         ListaArribo+=[NuevaLista[j]]#['CDM', 'PTY', 'MDT']
+         j+=4
+      k=3
+      ListaLlegada=[]
+      while k<largo:
+         ListaLlegada+=[NuevaLista[k]]#['SJO', 'MSJ', 'DMS']
+         k+=4
+
+#      PEDIR PARA FILTRAR
+      print("Digite la aerolinea a buscar")
+      print(listaAerolineas)
+      linea=input("Digite la Aerolinea a buscar:")
+      existe=0
+      #Comprobar que exista
+      for n in NuevaLista:
+         if n==linea:
+            existe+=1
+            
+      if  linea=="":#QUIERO HACER QUE SE FILTRE CUANTAS VECES ESTA Y ASI AHORRO
+         print("La aerolinea no existe, o la dejo en blanco")
+         return menu()
+      
+      posicion=[]
+      Trouve=0
+
+      copia2=ListaVuelos
+      while copia2!=[]:
+         if linea==copia2[0]:
+            posicion+=[Trouve]#me sa las posiciones donde esta esa aerolinea
+         copia2=copia2[1:]
+         
+         Trouve+=1#LE voy aplicar divicion entren 10 para que mede la posicion
+      
+
+      ListaMostrar=[]
+      for h in posicion:#se sale del rango
+         c=h//12#Primera da O, luego lee 4
+         ListaMostrar+=[copiaContenido[c]]#contiene todas las lineas,de los vuelos que coinciden
+#ANTES NO FUNCIONABA PORQUE NO LO HABIA PUESTO EN PARENTESIS
+      print("Vuelos con esa aerolinea",ListaMostrar)
+      print(" ESCRIBA EL Lugar de arrivo",ListaArribo)
+      arribo=input("Lugar de arribo:")
+
+      D=0
+      for p in NuevaLista:
+         if arribo==p:
+            D+=1
+      if D==0:
+         print("Arribo no existe")
+         return menu()
+      copiaListaMostrar=ListaMostrar
+      ListaFiltrada=[]
+      for r in copiaListaMostrar:
+         g=r.split(parar)
+         ListaFiltrada+=g#funciona bien tuquea las lista filtradas hace poco
+
+      Je=0
+      posicion2=[]
+      for u in ListaFiltrada:
+         if u==arribo:
+            posicion2+=[Je]
+         Je+=1
+      if posicion==0:
+         print("La el arribo no esta vinculado a esta aerolinea")
+         return menu()
+      casualidad=[]
+      for j in posicion2:
+         l=j-1
+         casualidad+=[ListaMostrar[l]]
+      print("")
+      print("")
+      print("Encontramos coincidencia con",casualidad)
+      return menu()
+         
+            
+      
+         
+      
+      
+
+
+
+
+      
+
+
+            
+         
+      
+   except Exception as e:
+      print("ERROR: en FILTRAR VUELOS:",e)
+      return menu()
+   
+      
+   
+
+         
+      
+      
+
+
+
+
+
+
+
+      
+  
+
+
+
+
+
+
 
 
    
-def usuario():
+   
+def usuario():#casi ultimo
    m=0
