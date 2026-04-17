@@ -2,7 +2,10 @@
 #Inicio de menú
 
 
-   
+"""nombre:menu
+entrada:Un numero cen el rango d funciones
+salida:renvio a otras funciones
+retricciones: """
 
 def menu():
    
@@ -43,7 +46,10 @@ def menu():
    if eleccion==4:
          return menugeneral()
 
-   
+"""nombre:acceso
+entrada:contrasenna y usuario
+salida:devuelta al menu si esta mal la contrasenna osino lo manda a OpcionesAdminitrativas
+retricciones: """
 def acceso():#contraseña para administrativos
    lecturaDatos="acceso.txt"
    try: 
@@ -133,6 +139,10 @@ def textoOpcionesAdministrativas():
 
     
    print("###################################################################################################################################")
+"""nombre:OpcionesAdministrativas
+entrada:un numero dentro de las opciones del menu
+salida:redirrecion a otras funciones
+retricciones: """
 def OpcionesAdministrativas():
     textoOpcionesAdministrativas()
    #esto funciona el problema es en el while de acceso, ya no molesta amenos que haya un error
@@ -166,7 +176,7 @@ def OpcionesAdministrativas():
 
       
     elif eleccion=="7":
-       return Estadisticas_De_Vuelo()
+       return Estadisticas_De_Vuelo(valor=None)
 
       
     elif eleccion=="8":
@@ -190,6 +200,10 @@ def textoOpcionesenavione_aux():
    print("###################################################################################################################################")
    
 #Esto es parte de las administrativas despues veo los procesos de texto
+"""nombre:Marcas_De_Aviones
+entrada:un numero dentro d elas opciones del menu
+salida:redirrecion a otras funciones
+retricciones: S"""
 def Marcas_De_Aviones():#aqui se debe poder agregar y modificar nada más es el paso mas sencillo
    print(textoOpcionesenavione_aux())
    print("")
@@ -209,13 +223,17 @@ def Marcas_De_Aviones():#aqui se debe poder agregar y modificar nada más es el 
       print("Su opcion no se encuentra")
       return OpcionesAdministrativas()
 
- ################################################################CORREGIR  
+ ################################################################CORREGIR
+"""nombre:Modelos
+entrada:un ma opcion para kmirar modelos
+salida:Su mostracion en pantalla
+retricciones: """
 def Modelos():
    marcas="aviones.txt"
    M=open(marcas)
    c=M.read()
    M.close()
-   if M=="":
+   if not c:
        print("carpeta: aviones vacia")
        return Marcas_De_Aviones()
    print("")
@@ -229,6 +247,10 @@ def Modelos():
 
 
 ##############################################3INCLUIR
+"""nombre:Incluir
+entrada:un modelo aincluir
+salida:su imclusion
+retricciones: no debe ser repetido"""
    
 def Incluir():# Ya sirve
    try:
@@ -273,7 +295,10 @@ def Incluir():# Ya sirve
       
       
 ######################################################MODIFICAR
-
+"""nombre:Modificar
+entrada:un modelo a eliminar
+salida:su eliminacion
+retricciones: Si esta vinculado aerolinea no se puede borrar"""
 def Modificar():
    
     try:
@@ -284,12 +309,10 @@ def Modificar():
         archivo = open(marcas)
        
         lista_marcas = archivo.read().split()
-        if lista_marcas==[]:
+        if not lista_marcas:
            print("Error. El archivo esta vacio")
            return Marcas_De_Aviones()
-        if archivo=="":
-            print("ERROR: ARCHIVO aviones Vacio")
-            return Marcas_De_Aviones()
+        
         archivo.close()
 
         listaMarcasFinal=[]
@@ -300,13 +323,11 @@ def Modificar():
 
         # Leer modelos 
         archivo = open(modelos)
-        if archivo=="":
-            print("ERROR: ARCHIVO modeloAviones Vacio")
-            return Marcas_De_Aviones()
         lista_modelos = archivo.read().split()# salen conservando el salto de linea
-        if lista_modelos==[]:
+        if not lista_modelos:
            print("Error. El archivo esta vacio")
            return Marcas_De_Aviones()
+        
         archivo.close()
 
         print("Marcas actuales:")
@@ -400,25 +421,13 @@ def portadaDeGestionDeAviones():
    print("")
    print("   (3)Salir")
    print("###################################################################################################################################")
-   
+"""nombre:Gestion_De_Tipos_De_Aviones
+entrada:redireccion a otras opciones dentro de la funcion
+salida:Una reubicacion alas opciones que otorga
+retricciones:"""
 def Gestion_De_Tipos_De_Aviones():
    portadaDeGestionDeAviones()
-   modelo="modeloAviones.txt"
    
-   archivo=open(modelo)
-   if archivo=="":
-      print("No puede haber archivos vacios")
-      return OpcionesAdministrativas()
-   contenido_modelos=archivo.read().split()#['A320;Airbus;16;50;130', '737;Boeing;16;30;150', 'E170;Embraer;66;70;15']
-   archivo.close()
-
-   aviones="aviones.txt"
-   archivo1=open(aviones)
-   if archivo1=="":
-      print("No puede haber archivos vacios")
-      return OpcionesAdministrativas()
-   contenido_aviones=archivo1.read().split()#['Airbus', 'Boeing', 'Embraer']
-   archivo1.close()
    
 
    
@@ -442,7 +451,10 @@ def Gestion_De_Tipos_De_Aviones():
 ###########################################################################################################################
    #ELIMINAR
 ###############################################################################################
-   
+"""nombre:incluir_modelo
+entrada:un modeloAvion, marca,sus asientos clase alta,turista y clase economica
+salida:rUn nuevo modelo guardado
+retricciones:que nose repita"""
 def eliminar_modelo():
    try:
       modelos="modeloAviones.txt"
@@ -586,6 +598,10 @@ def eliminar_modelo():
 #############################
    ########################DEBE MEJORARSE
    #########################################################
+"""nombre:incluir_modelo
+entrada:un modeloAvion, marca,sus asientos clase alta,turista y clase economica
+salida:rUn nuevo modelo guardado
+retricciones:que nose repita"""
    
 def incluir_modelo():
    try:
@@ -687,7 +703,10 @@ def poratadaGestionAerolinea():
    print("(3)Salir")
    print("###################################################################################################################################")
 
-   
+"""nombre:Gestion_De_Aerolinea
+entrada:una eleccion
+salida:redireccion a otra funcion
+retricciones:que no de error"""
 def Gestion_De_Aerolinea():
    print(poratadaGestionAerolinea())
    c=input("Digite su eleccion")
@@ -703,6 +722,12 @@ def Gestion_De_Aerolinea():
    else:
       print("La opcion que digitaste no existe")
       return OpcionesAdministrativas()
+
+    
+"""nombre:eliminarAeroline
+entrada:una aerolinea
+salida: su inclusion eliminacion del al archivo
+retricciones:No se pueden eliminar las vinculadas a aviones"""
    
 def eliminarAeroline():########USAR AVIONESAEROLINEAS.TXT
    
@@ -855,6 +880,10 @@ def eliminarAeroline():########USAR AVIONESAEROLINEAS.TXT
 
    
 ######################################################################################
+"""nombre:IncluirAerolinea
+entrada:una aerolinea
+salida: su inclusion al archivo
+retricciones:No se pueden repetir"""
    
 def IncluirAerolinea():
    try:
@@ -940,7 +969,10 @@ def Gestión_De_Avion_Por_Aviones():#Gestion de avion por aerolinea###($$$$$$$$$
    else:
       return Gestion_De_Avion_Por_Aviones()
 
-
+"""nombre:Incluir_Avion
+entrada:un avion
+salida: su inclusion al archivo
+retricciones:No se pueden repetir"""
 def Incluir_Avion():
    try:
       avero="avionesAerolineas.txt"
@@ -1110,7 +1142,10 @@ def Incluir_Avion():
    #ELIMINACION DE MODELOS NO INCLUIDOS
 
 ###########################################################################################################################
-
+"""nombre:eliminar_Avion
+entrada:un avion
+salida: su eliminacion
+retricciones:No se pueden borrar modelos vinculados"""
 def eliminar_Avion():
    try:
       avero="avionesAerolineas.txt"
@@ -1323,7 +1358,12 @@ def eliminar_Avion():
    #NUEVA FUNCION
 
    
- #################################################################################################################  
+ #################################################################################################################
+
+"""nombre:Gestion_De_Vuelos
+entrada:Una elcción
+salida: alguna d elas opciones del menu 
+retricciones:"""
 def Gestion_De_Vuelos():
    print("####################################################################################################")
    print("")
@@ -1352,6 +1392,10 @@ def Gestion_De_Vuelos():
       return Gestión_De_Avion_Por_Aviones()
 ######################################################################################################################
 
+"""nombre:Incluir_Gestion
+entrada:matricula,codigoAeropuerto,Codigo de aeropuerto de llegada
+salida:inclusion de una nuevo vuelo 
+retricciones:No debe estar repetido"""
    
 def Incluir_Gestion():
    from datetime import datetime,timedelta
@@ -1364,6 +1408,9 @@ def Incluir_Gestion():
       modeloAviones="modeloAviones.txt"
       V=open(modeloAviones)
       LEER=V.read().split()
+      if not LEER:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       V.close()
 
 
@@ -1376,12 +1423,18 @@ def Incluir_Gestion():
       
       abrir=open(avero)
       contenido=abrir.read()
+      if not contenido:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       abrir.close()
       parar=";"
 
 
       abrir=open(avero)
       contenido_matricula=abrir.read().split()# ES LA DE AVIONE SPOR AEROLINEA
+      if not contenido_matricula:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       abrir.close()
       ListaAsientos=[]
       for s in contenido_matricula:
@@ -1394,15 +1447,26 @@ def Incluir_Gestion():
       abre=open(aerolineas)#['LACSA;SanjoseCostarricaCDM;SJO', 'COPA;CiudaddePanamaPTY;MSJ', 'AF;Francia;MDT;DMS']
 
       contenido1=abre.read().split()# EL NUMERO 4 SIN EMPERZAR DE 0 ES LA AREROLIEA ACTUAL
+      if not contenido1:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       abre.close()
       
       abra=open(vuelos)
       contenido2=abra.read().split()
+      if not contenido2:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       abra.close()
+      
       parar=";"
+      
       listaAerolinea=[]
       x=open(avero)
       dentro1=x.read().split()
+      if not dentro1:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       x.close()
       listaModelos=[]
       
@@ -1415,6 +1479,9 @@ def Incluir_Gestion():
       listaAerea=[]
       u=open(avero)
       wao=u.read().split()
+      if not wao:
+          print("carpeta vacia")
+          return OpcionesAdministrativas()
       u.close()
       datos = dentro1
       largo=0
@@ -1680,6 +1747,10 @@ def Incluir_Gestion():
 
 
 ###############################################################continuacion vuelos
+"""nombre:Eliminar_Gestion
+entrada:UNa muestra
+salida: Vuelos borrados 
+retricciones:no sepueden borrar vuelos vinculasos"""
 def Eliminar_Gestion():
    try:
       vuelo="vuelos.txt"
@@ -1688,10 +1759,11 @@ def Eliminar_Gestion():
 
          
       dentro=open(vuelo)
-      if dentro=="":
+      
+      con=dentro.read().split()#tuquea listo para usar
+      if not con:
          print("ERROR: La carpeta Vuelo esta vacia")
          return Gestion_De_Vuelos()
-      con=dentro.read().split()#tuquea listo para usar
       dentro.close()
 #['737;PTY;2026/04/15;19:50;MSJ;2026/04/15;19:50;COPA;N804AM;16;30;150', 'A320;PTY;2026/04/15;19:46;MSJ;2026/04/15;19:46;LACSA;MSN001;16;50;130', '737;PTY;2026/04/15;00:57;MSJ;2026/04/15;00:57;COPA;N804AM;16;30;150', 'A320;SJO;06/04/2026;14:50;SJO;07/04/2026;14:15COPA;MSN001;16;50;130', 'A320;MDT;2026/04/15;00:38;DMS;2026/04/15;00:38;LACSA;MSN001;16;50;130']
 
@@ -1768,7 +1840,10 @@ def Eliminar_Gestion():
 
 
 
-
+"""nombre:Mostrar_Vuelos
+entrada:UNa muestra
+salida: mostaracion de los vuelos
+retricciones:no usar bolt lil"""
 
     
 
@@ -1778,10 +1853,11 @@ def Mostrar_Vuelos():
 
 
       dentro=open(vuelo)
-      if dentro=="":
+      
+      con=dentro.read().split()#tuquea listo para usar
+      if not con:
          print("ERROR: La carpeta Vuelo esta vacia")
          return Gestion_De_Vuelos()
-      con=dentro.read().split()#tuquea listo para usar
       dentro.close()
 
 
@@ -1814,11 +1890,24 @@ def Mostrar_Vuelos():
    #HISTORIAL RESERVACION
 
 #################################################################################################################################################################
-
-   
+"""nombre:Consultar_Historial_De_Reservaciones
+entrada:eleccion si desa modificar o eagregar
+salida: modificacion de datos en vuelos o eliminaciom
+retricciones:no usar bolt lil"""
 def Consultar_Historial_De_Reservaciones():
    try:
-      m=0
+      reserva="reservas.txt"
+      abrir=open(reserva)
+      contenido=abrir.read()
+      if not contenido :
+          print("Carpeta vacia")
+          return OpcionesAdministrativas()
+      abrir.close()
+      print("Estos son todos los vuelos actuales")
+      print("")
+      print(contenido)
+      tiempo=input("Digite lo que sea para salir")
+      return OpcionesAdministrativas()
 
 
 
@@ -1839,6 +1928,51 @@ def Consultar_Historial_De_Reservaciones():
 
 
 
+"""nombre:Estadisticas_De_Vuelo
+entrada:Un vuelo
+salida: cuanto recaudo
+retricciones:Nose"""
+
+
+
+########################################################################################### 
+def Estadisticas_De_Vuelo(valor=None):
+   try:
+       reservas="reservas.txt"
+       abrir=open(reservas)
+       contenido=abrir.read().split()
+       if not contenido:
+           print("reservas.txt esta vacio")
+           return OpcionesAdministrativas()
+       abrir.close()
+       parar=";"
+       NuevaLista=[]
+       
+       EJ="40000"
+       Ejecutivo=0
+       TU="30000"
+       Turista=0
+       ECO="20000"
+       Economico=0
+
+       for t in contenido:
+           c=t.split(parar)
+           NuevaLista+=c
+#Funciona correctamente
+       for elemento in NuevaLista:
+           if elemento==EJ:
+               Ejecutivo+=int(elemento)
+           elif elemento==TU:
+                Turista+=int(elemento)
+           elif elemento==ECO:
+               Economico+=int(elemento)
+       
+       print("Ganancia monetaria")
+       print("Ganancia en clase ejecutiva:",Ejecutivo)
+       print("Ganancia en clase Turista:",Turista)
+       print("Ganancia en clase Economica:",Economico)
+       salir=input("Digite cualquier cosa para salir")
+       return OpcionesAdministrativas()
 
 
 
@@ -1849,9 +1983,10 @@ def Consultar_Historial_De_Reservaciones():
 
 
 
-   
-def Estadisticas_De_Vuelo():
-   m=0
+       
+   except Exception as e:
+      print("ERROR: en Consultar_Historial_De_Reservaciones:",e)
+      return Gestion_De_Vuelos()
 
 
 
@@ -1861,7 +1996,10 @@ def Estadisticas_De_Vuelo():
 
 
 
-
+"""nombre:menugeneral
+entrada:un ligito para la eleccion que desea
+salida: consulta diferentes funciones del menu general
+retricciones:no usar bolt lil"""
 
 
 
@@ -1903,6 +2041,10 @@ def PORTADACONSULTAVUELOS():
    print("(3)VUELOS ECONOMICO")
    print("")
    print("#############################################################################################################################")
+"""nombre:consultaVuelos
+entrada:un ligito para la eleccion que desea
+salida: consulta diferentes funciones del menu general
+retricciones:no usar bolt lil"""
 def consultaVuelos():
    PORTADACONSULTAVUELOS()#se returna incluso sin print
    eleccion=input("Elija su opción:")
@@ -1916,7 +2058,10 @@ def consultaVuelos():
       return menu()
 ######################################################################################################################################
    #Importante
-
+"""nombre:filtraVuelos
+entrada:preguntas
+salida: consulta que vueos existen
+retricciones:no usar bolt lil"""
 ############################MUY importante  
 def filtraVuelos():
    try:
@@ -1924,10 +2069,11 @@ def filtraVuelos():
       parar=";"
       abre=open(vuelos)
       
-      if abre=="":
+      
+      contenido1=abre.read().split()
+      if not contenido1:
          print("ListaVuelos vacia")
          return menu()
-      contenido1=abre.read().split()
       abre.close()
       copiaContenido=contenido1
       ListaVuelos=[]
@@ -1938,10 +2084,11 @@ def filtraVuelos():
       
       aerolinea="aerolineas.txt"
       abrir=open(aerolinea)
-      if abrir=="":
-         print("ERROR: LA CARPETA AEROLIEAS ESTA VACIA")
-         return menu()
+      
       contenido=abrir.read().split()#contenido sige con lo de las aerolineas
+      if not contenido:
+         print("ListaVuelos vacia")
+         return menu()
       abrir.close()
       
 
@@ -2064,29 +2211,403 @@ def filtraVuelos():
       return menu()
    
       
+        
+        
+
+    
+
+
+      
+def oportadaMenuUsuario():
+    print("=========================================================================================================================")
+    print("")
+    print("(1)Ejecutivo")
+    print("")
+    print("(2)Turista")
+    print("")
+    print("(3)Economico")
+    print("")
+    print("==========================================================================================================================")
+
+
+
+
+
+"""nombre:usuario
+entrada: el nombre y vuelo, aerolinea, precio
+salida: guadar los datos en reservas
+retricciones:no usar bolt lil"""
+
+
+
+
    
+   
+def usuario(valor=None):#casi ultimo
+    try:
+       oportadaMenuUsuario()
+       nombre=input("Escriba su nombre:")
+       print("")
+       
+       
+       reserva=input("ESCRIBA EL NÚMERO DE LA CLASE QUE DESEA RESRVAR:")
+       if reserva=="":
+           print("Su elccion de vuelo no debe estar vacia")
+           return usuario()
+       if reserva=="1":
+           print("Eleccion ejecutiva")
+          
+       elif reserva=="2":
+           print("Eleccion Turista")
+       elif reserva=="3":
+           print("Eleccion Economico")
+       else:
+           print("Su eleccion de clase de vuelo no existe")
+           return usuario()
+        
+
+       
+       vuelos="vuelos.txt"
+       parar=";"
+       abre=open(vuelos)
+      
+    
+       contenido1=abre.read().split()
+       if not contenido1:
+           print("archivo vacio")
+           return menu()
+       abre.close()
+       copiaContenido=contenido1
+       ListaVuelos=[]
+       for n in contenido1:
+          c=n.split(parar)
+          ListaVuelos+=c#['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', 'MSN001', '16', '50', '130', '737', 'PTY', '2026/04/15', '00:57', 'MSJ', '2026/04/15', '00:57', 'COPA', 'N804AM', '16', '30', '150', 'A320', 'SJO', '06/04/2026', '14:50', 'SJO', '07/04/2026', '14:15COPA', 'MSN001', '16', '50', '130', 'A320', 'MDT', '2026/04/15', '00:38', 'DMS', '2026/04/15', '00:38', 'LACSA', 'MSN001', '16', '50', '130']
+      
+       
+
+       
+       aerolinea="aerolineas.txt"
+       abrir=open(aerolinea)
+       
+       contenido=abrir.read().split()#contenido sige con lo de las aerolineas
+       if not contenido:
+           print("archivo vacio")
+           return menu()
+       abrir.close()
+      
+
+      
+       NuevaLista=[]
+       for s in contenido:
+          c=s.split(parar)
+          NuevaLista=NuevaLista+c#ya todo en pedacitos
+      
 
          
+      ###########################################SACAR LARGO
+       largo=0
+       for m in NuevaLista:
+          largo+=1
+              
+
+      #Sacar aerolineas
+       i=0
+       listaAerolineas=[]
+       while i<largo:
+             listaAerolineas+=[NuevaLista[i]]#['LACSA', 'COPA', 'AF']
+             i+=4
+         
+      ####################Lugares de Arribo
+       j=2#De hay enpiezan los arribos
+       ListaArribo=[]
+       while j<largo:
+          ListaArribo+=[NuevaLista[j]]#['CDM', 'PTY', 'MDT']
+          j+=4
+       k=3
+       ListaLlegada=[]
+       while k<largo:
+          ListaLlegada+=[NuevaLista[k]]#['SJO', 'MSJ', 'DMS']
+          k+=4
+
+#      PEDIR PARA FILTRAR
+       print("Digite la aerolinea a buscar, para su abordaje")
+       print(listaAerolineas)
+       linea=input("Digite la Aerolinea a buscar:")
+       existe=0
+      #Comprobar que exista
+       for n in NuevaLista:
+          if n==linea:
+            existe+=1
+            
+       if  linea=="":#QUIERO HACER QUE SE FILTRE CUANTAS VECES ESTA Y ASI AHORRO
+          print("La aerolinea la dejo en blanco")
+          return menu()
+       elif existe==0:
+           print("La aerolinea no existe")
+           return menu()
       
+       posicion=[]
+       Trouve=0
+
+       copia2=ListaVuelos
+       while copia2!=[]:
+          if linea==copia2[0]:
+             posicion+=[Trouve]#me sa las posiciones donde esta esa aerolinea
+          copia2=copia2[1:]
+         
+          Trouve+=1#LE voy aplicar divicion entren 10 para que mede la posicion
       
 
+       ListaMostrar=[]
+       for h in posicion:#se sale del rango
+          c=h//12#Primera da O, luego lee 4
+          ListaMostrar+=[copiaContenido[c]]#contiene todas las lineas,de los vuelos que coinciden
+#ANTES NO FUNCIONABA PORQUE NO LO HABIA PUESTO EN PARENTESIS
+       print("Vuelos con esa aerolinea",ListaMostrar)
+       print(" ESCRIBA EL Lugar de arrivo",ListaArribo)
+       arribo=input("Lugar de arribo:")
+
+       D=0
+       for p in NuevaLista:
+          if arribo==p:
+            D+=1
+       if D==0:
+          print("Arribo no existe")
+          return menu()
+       copiaListaMostrar=ListaMostrar
+       ListaFiltrada=[]
+       for r in copiaListaMostrar:
+          g=r.split(parar)
+          ListaFiltrada+=g#funciona bien tuquea las lista filtradas hace poco
+
+       Je=0
+       posicion2=[]
+       for u in ListaFiltrada:
+          if u==arribo:
+             posicion2+=[Je]
+          Je+=1
+       if posicion==0:
+          print("La el arribo no esta vinculado a esta aerolinea")
+          return menu()
+       casualidad=[]
+       for j in posicion2:
+          l=j-1
+          casualidad+=[ListaMostrar[l]]# seria el vuelo
+#Voy a reciclar ySIMPLEMETE AGREGARE LA FUNCION PARA RESTAR ASIENTOS
 
 
+          
+        #ListaAsientosReserva=ListaVuelos
 
-
-
-
-      
-  
-
-
-
-
-
-
-
-
+       RESERVAS="reservas.txt"
+       ListaReserva=[]
+       NuevaListaAsientos=[]
+       ListaDefinitiva=[]
+       LISTAFINAL=[]
+       if reserva=="1":#SERIA EJECUTIVO
+           monto1="40000"
+           for i in casualidad:
+              p=i.split(parar)
+              ListaReserva+=p
+           i=9
+           Restar=ListaReserva[i]
+          
+           Restar=int(Restar)#esta en el lugar correcto
+           s=0
+           while s<=11:
+               if ListaReserva[s]!=ListaReserva[i]:
+                   NuevaListaAsientos+=[ListaReserva[s]]#saco todo menos el asiento
+               s+=1
+           if Restar=="0":
+               print("Ya no quedan más asientos ejecutivos para este vuelo, Porfavor vuelva a intentar en contra clase")
+               return menu()
+           if Restar>0:
+               Restar-=1
+           #['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', 'MSN001', '50', '130']LECTURA CORRECTA
+           #ESTAMOS RESTANDO EL ASIENTO
+           Restar=str(Restar)
+           m=8
+           for g in NuevaListaAsientos:
+               if g==NuevaListaAsientos[m]:
+                   ListaDefinitiva+=[Restar]
+               ListaDefinitiva+=[g]#['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', '15', 'MSN001', '50', '130'] LO HACE CORRECTAMENTE
+          
+           LISTAFINAL=nombre+";"+ListaDefinitiva[0]+";"+ListaDefinitiva[1]+";"+ListaDefinitiva[2]+";"+ListaDefinitiva[3]+";"+ListaDefinitiva[4]+";"+ListaDefinitiva[5]+";"+ListaDefinitiva[6]+";"+ListaDefinitiva[7]+";"+ListaDefinitiva[8]+";"+ListaDefinitiva[9]+";"+ListaDefinitiva[10]+";"+ListaDefinitiva[11]+";"+monto1
+          
+           hola=open(RESERVAS,"a")
+           print(LISTAFINAL,file=hola)
+           hola.close()
+           print("Reserva confirmada su tiket es:",LISTAFINAL)
+           print(" se reservo con exito")
+           return menu()
+        
+    
    
-   
-def usuario():#casi ultimo
-   m=0
+        
+              
+              
+              
+ #CLASETURISTA         
+
+
+            
+       if reserva=="2":#Turista
+           
+          
+           for i in casualidad:
+               p=i.split(parar)
+               ListaReserva+=p
+           i=10
+           Restar=ListaReserva[i]
+          
+           Restar=int(Restar)#esta en el lugar correcto
+           s=0
+           while s<=11:
+               if ListaReserva[s]!=ListaReserva[i]:
+                   NuevaListaAsientos+=[ListaReserva[s]]#saco todo menos el asiento
+               s+=1
+           if Restar=="0":
+               print("Ya no quedan más asientos ejecutivos para este vuelo, Porfavor vuelva a intentar en contra clase")
+               return menu()
+           if Restar>0:
+              Restar-=1
+          #['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', 'MSN001', '50', '130']LECTURA CORRECTA
+          #ESTAMOS RESTANDO EL ASIENTO
+           Restar=str(Restar)
+           m=9
+           for g in NuevaListaAsientos:
+               if g==NuevaListaAsientos[m]:
+                   ListaDefinitiva+=[Restar]
+               ListaDefinitiva+=[g]#['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', '15', 'MSN001', '50', '130'] LO HACE CORRECTAMENTE
+          
+           LISTAFINAL=nombre+";"+ListaDefinitiva[0]+";"+ListaDefinitiva[1]+";"+ListaDefinitiva[2]+";"+ListaDefinitiva[3]+";"+ListaDefinitiva[4]+";"+ListaDefinitiva[5]+";"+ListaDefinitiva[6]+";"+ListaDefinitiva[7]+";"+ListaDefinitiva[8]+";"+ListaDefinitiva[10]+";"+ListaDefinitiva[9]+";"+ListaDefinitiva[11]+";"+monto2
+          
+           hola=open(RESERVAS,"a")
+           print(LISTAFINAL,file=hola)
+           hola.close()
+           print("Reserva confirmada su tiket es:",LISTAFINAL)
+           print(" se reservo con exito")
+           return menu()
+           
+           
+
+    
+ #CLASE ECONOMICA
+
+    
+       if reserva=="3":#economico
+           
+           for i in casualidad:
+              p=i.split(parar)
+              ListaReserva+=p
+           i=11
+           Restar=ListaReserva[i]
+          
+           Restar=int(Restar)#esta en el lugar correcto
+           s=0
+           while s<=11:
+               if ListaReserva[s]!=ListaReserva[i]:
+                  NuevaListaAsientos+=[ListaReserva[s]]#saco todo menos el asiento
+               s+=1
+           if Restar=="0":
+               print("Ya no quedan más asientos ejecutivos para este vuelo, Porfavor vuelva a intentar en contra clase")
+               return menu()
+           if Restar>0:
+               Restar-=1
+           #['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', 'MSN001', '50', '130']LECTURA CORRECTA
+           #ESTAMOS RESTANDO EL ASIENTO
+           Restar=str(Restar)
+           m=10
+           for g in NuevaListaAsientos:
+               if g==NuevaListaAsientos[m]:
+                   ListaDefinitiva+=[Restar]
+               ListaDefinitiva+=[g]#['A320', 'CDM', '2026/04/16', '00:42', 'SJO', '2026/04/16', '00:42', 'LACSA', '15', 'MSN001', '50', '130'] LO HACE CORRECTAMENTE
+          
+           LISTAFINAL=nombre+";"+ListaDefinitiva[0]+";"+ListaDefinitiva[1]+";"+ListaDefinitiva[2]+";"+ListaDefinitiva[3]+";"+ListaDefinitiva[4]+";"+ListaDefinitiva[5]+";"+ListaDefinitiva[6]+";"+ListaDefinitiva[7]+";"+ListaDefinitiva[8]+";"+ListaDefinitiva[10]+";"+ListaDefinitiva[9]+";"+ListaDefinitiva[11]+";"+monto3
+          
+           hola=open(RESERVAS,"a")
+           print(LISTAFINAL,file=hola)
+           hola.close()
+           print("Reserva confirmada su tiket es:",LISTAFINAL)
+           
+           print(" se reservo con exito")
+           return menu()
+       
+            
+
+           
+                  
+
+
+
+
+
+
+          
+    except Exception as e:
+       print("ERROR: en USUARIO:",e)
+       return
+
+"""nombre:CancelarReservacion
+entrada: una reserva
+salida: la eliminacion de la reserva
+retricciones:no usar bolt lil"""
+def CancelarReservacion():
+    reserva="reservas.txt"
+    abrir=open(reserva)
+    contenido=abrir.read().split()
+    if not contenido:
+        print("ARCHIVO reservas vacio")
+        return menu()
+    abrir.close()
+    parar=";"
+    Lista=[]
+    NuevaLista=[]#para todo el codigo
+    for s in contenido:
+        d=s.split(parar)
+        Lista+=d
+    usuario=input("Digite el nombre que puso en se reservacion:")
+    encontrado=0
+    posicion=0
+    for p in Lista:
+        if p==usuario:
+            encontrado+=1
+            break
+        posicion+=1
+        
+        
+    if usuario=="":
+        print("Dejo su usuario en blando")
+        return menu()
+    elif encontrado==0:
+        print("Su usuario de reservación esta mal:")
+        return menu()
+    elif encontrado>0:
+        posicion//=14
+        borrar=open(reserva,"w")
+        borrar.close()
+        for s in contenido:
+            if s != contenido[posicion]:
+                abre=open(reserva,"a")
+                print(s,file=abre)
+                abre.close()
+    print("Se ha borrado su reservacion con exito")
+    return menu()
+        
+        
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
