@@ -2243,7 +2243,7 @@ retricciones:no usar bolt lil"""
 
    
    
-def usuario(valor=None):#casi ultimo
+def usuario():#casi ultimo
     try:
        oportadaMenuUsuario()
        nombre=input("Escriba su nombre:")
@@ -2453,7 +2453,7 @@ def usuario(valor=None):#casi ultimo
             
        if reserva=="2":#Turista
            
-          
+           monto2="30000"
            for i in casualidad:
                p=i.split(parar)
                ListaReserva+=p
@@ -2496,7 +2496,7 @@ def usuario(valor=None):#casi ultimo
 
     
        if reserva=="3":#economico
-           
+           monto3="20000"
            for i in casualidad:
               p=i.split(parar)
               ListaReserva+=p
